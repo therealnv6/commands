@@ -82,7 +82,7 @@ object Commands
     fun wrapCommand(command: Any): List<WrappedCommand>
     {
         return this.wrappers
-            .map { it.wrapCommand(command) }
+            .map { it.wrapCommand(command, command) }
             .flatten()
     }
 }
