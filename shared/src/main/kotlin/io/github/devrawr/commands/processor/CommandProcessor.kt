@@ -2,6 +2,7 @@ package io.github.devrawr.commands.processor
 
 import io.github.devrawr.commands.CommandPlatform
 import io.github.devrawr.commands.Commands
+import io.github.devrawr.commands.Locale
 import io.github.devrawr.commands.command.WrappedCommand
 import io.github.devrawr.commands.processor.executor.Executor
 
@@ -19,7 +20,7 @@ abstract class CommandProcessor
 
         if (user == null)
         {
-            executor.sendMessage(Commands.currentLocale["user-not-found"]!!)
+            executor.sendMessage(Locale.retrieveLocale(executor)["user-not-found"]!!)
             return
         }
 
@@ -40,7 +41,7 @@ abstract class CommandProcessor
             if (arguments.size - 1 < index && argument.value == null)
             {
                 executor.sendMessage(
-                    Commands.currentLocale["does-not-meet-arguments"]!!
+                    Locale.retrieveLocale(executor)["does-not-meet-arguments"]!!
                         .replace("{label}", command.label)
                         .replace("{arguments}", command.formatArguments())
                 )

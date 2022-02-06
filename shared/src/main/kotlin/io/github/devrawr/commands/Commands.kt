@@ -4,7 +4,6 @@ import io.github.devrawr.commands.command.CommandWrapper
 import io.github.devrawr.commands.command.WrappedCommand
 import io.github.devrawr.commands.context.CommandContext
 import io.github.devrawr.commands.context.defaults.StringCommandContext
-import io.github.devrawr.commands.locale.Locale
 import io.github.devrawr.commands.util.ObjectInstanceUtil.getOrCreateInstance
 
 object Commands
@@ -12,12 +11,6 @@ object Commands
     val platforms = mutableListOf<CommandPlatform>()
     val wrappers = mutableListOf<CommandWrapper>()
     val contexts = mutableMapOf<Class<*>, CommandContext<*>>()
-
-    val locales = hashMapOf(
-        "en_US" to Locale()
-    )
-
-    var currentLocale: Locale = locales.values.first()
 
     val DEFAULT_CONTEXT: CommandContext<*> = StringCommandContext
 

@@ -1,6 +1,7 @@
 package io.github.devrawr.commands.command
 
 import io.github.devrawr.commands.Commands
+import io.github.devrawr.commands.Locale
 import java.lang.reflect.Method
 
 class WrappedCommand(
@@ -28,6 +29,6 @@ class WrappedCommand(
                 "required-argument"
             }
 
-            return@map Commands.currentLocale[localeType]!!.replace("{name}", it.name)
+            return@map Locale.retrieveLocale()[localeType]!!.replace("{name}", it.name)
         }.joinToString(" ")
 }

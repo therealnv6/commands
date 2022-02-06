@@ -12,20 +12,6 @@ abstract class CommandPlatform
 
     abstract fun registerCommand(command: WrappedCommand)
 
-    open fun loadLocale()
-    {
-        Commands.locales["en_US"]!!.putAll(
-            mapOf(
-                "user-not-found" to "User could not be parsed from provided executor.",
-                "unable-to-parse-executor" to "Executor could not be parsed from provided user.",
-                "does-not-meet-arguments" to "Usage: /{label} {arguments}",
-                "required-argument" to "<{name}>",
-                "optional-argument" to "[{name}]",
-                "vararg-argument" to "..."
-            )
-        )
-    }
-
     fun registerCommand(command: Any)
     {
         this.wrapCommand(command).forEach {
