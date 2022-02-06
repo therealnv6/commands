@@ -1,13 +1,15 @@
 package io.github.devrawr.commands
 
 import io.github.devrawr.commands.command.WrappedCommand
-import io.github.devrawr.commands.executor.CommandExecutorProcessor
-import io.github.devrawr.commands.locale.Locale
+import io.github.devrawr.commands.processor.CommandProcessor
+import io.github.devrawr.commands.processor.executor.ExecutorProcessor
 import io.github.devrawr.commands.util.ObjectInstanceUtil.getOrCreateInstance
 
 abstract class CommandPlatform
 {
-    abstract val executorProcessor: CommandExecutorProcessor
+    abstract val executorProcessor: ExecutorProcessor<*>
+    abstract val commandProcessor: CommandProcessor
+
     abstract fun registerCommand(command: WrappedCommand)
 
     open fun loadLocale()
@@ -15,6 +17,7 @@ abstract class CommandPlatform
         Commands.locales["en_US"]!!.putAll(
             mapOf(
                 "user-not-found" to "User could not be parsed from provided executor.",
+                "unable-to-parse-executor" to "Executor could not be parsed from provided user.",
                 "does-not-meet-arguments" to "Usage: /{label} {arguments}",
                 "required-argument" to "<{name}>",
                 "optional-argument" to "[{name}]",

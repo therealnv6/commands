@@ -3,19 +3,19 @@ package io.github.devrawr.commands.processor
 import io.github.devrawr.commands.CommandPlatform
 import io.github.devrawr.commands.Commands
 import io.github.devrawr.commands.command.WrappedCommand
-import io.github.devrawr.commands.executor.CommandExecutor
+import io.github.devrawr.commands.processor.executor.Executor
 
 abstract class CommandProcessor
 {
     abstract val platform: CommandPlatform
 
     open fun process(
-        executor: CommandExecutor,
+        executor: Executor,
         command: WrappedCommand,
         arguments: List<String>
     )
     {
-        val user = platform.executorProcessor.toUser(executor)
+        val user = platform.executorProcessor.toUserCasted(executor)
 
         if (user == null)
         {
@@ -29,7 +29,12 @@ abstract class CommandProcessor
         {
             if (data[index] != null)
             {
-                return
+                continue
+            }
+
+            if (this.platform.executorProcessor.isUser(argument.type))
+            {
+                data[index] = user
             }
 
             if (arguments.size - 1 < index && argument.value == null)
