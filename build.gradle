@@ -34,7 +34,7 @@ allprojects {
         exclude "**/*.kotlin_builtins"
         exclude "META-INF/"
 
-        archiveFileName = "lmaolib-${project.name}.jar"
+        archiveFileName = "commands-${project.name}.jar"
     }
 
     publishing {
