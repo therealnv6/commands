@@ -23,13 +23,15 @@ object AnnotationCommandWrapper : CommandWrapper()
 
             return listOf(
                 WrappedCommand(
-                    name = annotation.value,
+                    name = annotation.value
+                        .split("|")
+                        .toTypedArray(),
                     instance = instance,
-                    parent = parent
+                    parent = parent,
+                    method = command
                 ).apply {
                     this.permission = method.getAnnotation<CommandPermission>()?.value ?: ""
                     this.arguments = wrapArguments(method).toMutableList()
-                    this.method = command
                 }
             )
         } else
@@ -58,10 +60,15 @@ object AnnotationCommandWrapper : CommandWrapper()
                     }
 
                 return listOf(
-                    WrappedCommand(annotation.value, command).apply {
+                    WrappedCommand(
+                        name = annotation.value
+                            .split("|")
+                            .toTypedArray(),
+                        instance = command,
+                        method = method
+                    ).apply {
                         this.permission = clazz.getAnnotation<CommandPermission>()?.value ?: ""
                         this.arguments = wrapArguments(method).toMutableList()
-                        this.method = method
 
                         for (declaredMethod in clazz.declaredMethods)
                         {

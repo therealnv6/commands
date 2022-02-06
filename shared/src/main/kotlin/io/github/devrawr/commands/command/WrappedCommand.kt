@@ -6,11 +6,10 @@ import java.lang.reflect.Method
 class WrappedCommand(
     val name: Array<String>,
     val instance: Any,
+    val method: Method,
     var parent: WrappedCommand? = null
 )
 {
-    lateinit var method: Method
-
     val children = mutableListOf<WrappedCommand>()
     var arguments = mutableListOf<WrappedArgument<*>>()
 
