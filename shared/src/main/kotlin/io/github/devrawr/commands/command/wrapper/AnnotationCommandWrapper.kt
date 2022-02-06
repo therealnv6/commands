@@ -19,7 +19,7 @@ object AnnotationCommandWrapper : CommandWrapper()
         if (command is Method)
         {
             val annotation = command.getAnnotation<Command>()
-                ?: throw IllegalArgumentException("Provided method does not have a Command annotation.")
+                ?: return emptyList()
 
             return listOf(
                 WrappedCommand(

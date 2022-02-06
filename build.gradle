@@ -28,6 +28,10 @@ allprojects {
         implementation "org.jetbrains.kotlin:kotlin-reflect:1.6.10"
     }
 
+    test {
+        useJUnitPlatform()
+    }
+
     compileKotlin {
         kotlinOptions.javaParameters = true
         kotlinOptions.jvmTarget = "1.8"
