@@ -12,6 +12,8 @@ object BukkitCommandPlatform : CommandPlatform()
     override val executorProcessor = BukkitExecutorProcessor
     override val commandProcessor = BukkitCommandProcessor
 
+    var fallback: String = "commands"
+
     private val commandMap by lazy {
         val pluginManager = Bukkit.getPluginManager()
         val field = pluginManager.javaClass.getDeclaredField("commandMap")
@@ -23,6 +25,6 @@ object BukkitCommandPlatform : CommandPlatform()
 
     override fun registerCommand(command: WrappedCommand)
     {
-        commandMap.register("", BukkitCommand(command))
+        commandMap.register(fallback, BukkitCommand(command))
     }
 }
