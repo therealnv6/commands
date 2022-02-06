@@ -12,6 +12,7 @@ object AnnotationCommandWrapper : CommandWrapper()
 {
     override fun wrapCommand(
         command: Any,
+        instance: Any,
         parent: WrappedCommand?
     ): List<WrappedCommand>
     {
@@ -23,6 +24,7 @@ object AnnotationCommandWrapper : CommandWrapper()
             return listOf(
                 WrappedCommand(
                     name = annotation.value,
+                    instance = instance,
                     parent = parent
                 ).apply {
                     this.permission = method.getAnnotation<CommandPermission>()?.value ?: ""
@@ -41,7 +43,7 @@ object AnnotationCommandWrapper : CommandWrapper()
                     .map {
                         try
                         {
-                            wrapCommand(it, null)
+                            wrapCommand(it, command, null)
                         } catch (ignored: IllegalArgumentException)
                         {
                             emptyList()
@@ -56,7 +58,7 @@ object AnnotationCommandWrapper : CommandWrapper()
                     }
 
                 return listOf(
-                    WrappedCommand(annotation.value).apply {
+                    WrappedCommand(annotation.value, command).apply {
                         this.permission = clazz.getAnnotation<CommandPermission>()?.value ?: ""
                         this.arguments = wrapArguments(method).toMutableList()
                         this.method = method
@@ -65,7 +67,7 @@ object AnnotationCommandWrapper : CommandWrapper()
                         {
                             this.children.addAll(
                                 wrapCommand(
-                                    declaredMethod, this
+                                    declaredMethod, command, this
                                 )
                             )
                         }

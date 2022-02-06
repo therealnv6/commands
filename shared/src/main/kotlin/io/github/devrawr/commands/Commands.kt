@@ -4,6 +4,7 @@ import io.github.devrawr.commands.command.CommandWrapper
 import io.github.devrawr.commands.command.WrappedCommand
 import io.github.devrawr.commands.context.CommandContext
 import io.github.devrawr.commands.context.defaults.StringCommandContext
+import io.github.devrawr.commands.locale.Locale
 import io.github.devrawr.commands.util.ObjectInstanceUtil.getOrCreateInstance
 
 object Commands
@@ -12,14 +13,15 @@ object Commands
     val wrappers = mutableListOf<CommandWrapper>()
     val contexts = mutableMapOf<Class<*>, CommandContext<*>>()
 
+    val locales = hashMapOf(
+        "en_US" to Locale()
+    )
+
+    var currentLocale: Locale = locales.values.first()
+
     val DEFAULT_CONTEXT: CommandContext<*> = StringCommandContext
 
-    inline fun <reified T : CommandPlatform> usePlatform(
-        noinline body: T.() -> Unit = {}
-    ): Commands
-    {
-        return this.usePlatform(T::class.java, body)
-    }
+    inline fun <reified T : CommandPlatform> usePlatform(noinline body: T.() -> Unit = {}) = usePlatform(T::class.java, body)
 
     fun <T : CommandPlatform> usePlatform(
         type: Class<T>,
@@ -35,10 +37,7 @@ object Commands
         }
     }
 
-    inline fun <reified T : CommandWrapper> useWrapper(): Commands
-    {
-        return this.useWrapper(T::class.java)
-    }
+    inline fun <reified T : CommandWrapper> useWrapper() = useWrapper(T::class.java)
 
     fun <T : CommandWrapper> useWrapper(type: Class<T>): Commands
     {
@@ -47,10 +46,7 @@ object Commands
         }
     }
 
-    inline fun <reified K, reified V : CommandContext<K>> useContext(): Commands
-    {
-        return this.useContext(K::class.java, V::class.java)
-    }
+    inline fun <reified K, reified V : CommandContext<K>> useContext() = useContext(K::class.java, V::class.java)
 
     fun <K, V : CommandContext<K>> useContext(
         keyType: Class<K>,

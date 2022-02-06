@@ -9,6 +9,7 @@ abstract class CommandWrapper
 {
     abstract fun wrapCommand(
         command: Any,
+        instance: Any,
         parent: WrappedCommand? = null
     ): List<WrappedCommand>
 
@@ -32,6 +33,7 @@ abstract class CommandWrapper
                 WrappedArgument(
                     name = it.name,
                     type = it.type,
+                    context = context,
                     value = wrappedValue
                 )
             }
