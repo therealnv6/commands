@@ -18,16 +18,27 @@ object BukkitCommandPlatform : CommandPlatform()
 
     private val commandMap by lazy {
         val pluginManager = Bukkit.getPluginManager()
-        val field = pluginManager.javaClass.getDeclaredField("commandMap")
+        val field = pluginManager.javaClass
+            .getDeclaredField("commandMap")
+            .apply {
+                this.isAccessible = true
+            }
 
-        return@lazy field.apply {
-            this.isAccessible = true
-        }.get(pluginManager) as CommandMap
+        return@lazy field.get(pluginManager) as CommandMap
     }
 
     init
     {
-        Locale.locales["en_US"]!!["error-prefix"] = "${ChatColor.RED}Error: "
+        Locale.locales["bukkit"] = hashMapOf(
+            "user-not-found" to "User could not be parsed from provided executor.",
+            "unable-to-parse-executor" to "Executor could not be parsed from provided user.",
+            "does-not-meet-arguments" to "Incorrect usage, try: /{label} {arguments}",
+            "unable-to-parse-argument" to "Unable to parse argument from \"{arg}\"",
+            "required-argument" to "<{name}>",
+            "optional-argument" to "[{name}]",
+            "error-prefix" to "${ChatColor.RED}Error: ${ChatColor.WHITE}",
+            "vararg-argument" to "..."
+        )
     }
 
     override fun registerCommand(command: WrappedCommand)

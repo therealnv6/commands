@@ -99,7 +99,7 @@ object Commands
         return this.apply {
             this.platforms.firstOrNull {
                 it.javaClass == T::class.java
-            }?.registerCommand(
+            }!!.registerCommand(
                 WrappedCommand(
                     name = name.split("|").toTypedArray(),
                     method = body

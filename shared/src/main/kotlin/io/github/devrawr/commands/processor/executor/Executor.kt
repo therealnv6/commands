@@ -6,4 +6,6 @@ abstract class Executor<T>
     abstract fun hasPermission(permission: String): Boolean
     abstract fun appliesToUser(type: Class<*>): Boolean
     abstract fun toUser(): T?
+
+    abstract fun getLocaleType(): String
 }

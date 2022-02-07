@@ -99,7 +99,7 @@ class WrappedCommand(
                     argument.value
                 } else if (i == this.arguments.size - 1 && args.size > offsetIndex && argument.type == Array<String>::class.java)
                 {
-                    args.toList().subList(offsetIndex, args.size - 1).toTypedArray()
+                    args.toList().subList(offsetIndex, args.size).toTypedArray()
                 } else
                 {
                     val exception = ArgumentParseException(

@@ -6,11 +6,7 @@ import org.bukkit.ChatColor
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 
-class BukkitCommand(
-    private val command: WrappedCommand
-) : Command(
-    command.label
-)
+class BukkitCommand(private val command: WrappedCommand) : Command(command.label)
 {
     init
     {
@@ -31,7 +27,7 @@ class BukkitCommand(
             sender.sendMessage(
                 ChatColor.translateAlternateColorCodes(
                     '&',
-                    Locale.retrieveLocale()["unable-to-parse-executor"]!!
+                    Locale.retrieveLocale(executor)["unable-to-parse-executor"]!!
                 )
             )
             return true

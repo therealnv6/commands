@@ -25,4 +25,9 @@ class BukkitExecutor(val sender: CommandSender) : Executor<CommandSender>()
     {
         return this.sender
     }
+
+    override fun getLocaleType(): String
+    {
+        return "bukkit"
+    }
 }
