@@ -66,7 +66,7 @@ class WrappedCommand(
             0
         }
 
-        for (i in offset..this.arguments.size)
+        for (i in offset until this.arguments.size)
         {
             val argument = this.arguments[i]
 
