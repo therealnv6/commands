@@ -32,7 +32,7 @@ class WrappedCommand(
         }
     )
 
-    fun formatArguments() = arguments
+    private fun formatArguments() = arguments
         .map {
             val optional = it.value != null
             val localeType = if (optional)
@@ -93,15 +93,17 @@ class WrappedCommand(
                     arguments.subList(offsetIndex, args.size - 1).toTypedArray()
                 } else
                 {
+                    val exception = ArgumentParseException(
+                        Locale.retrieveLocale(executor)["unable-to-parse-argument"]!!
+                            .replace("{arg}", args[offsetIndex])
+                    )
+
                     try
                     {
-                        argument.convertToValue(args[offsetIndex])
+                        argument.convertToValue(args[offsetIndex]) ?: throw exception
                     } catch (ignored: Exception)
                     {
-                        throw ArgumentParseException(
-                            Locale.retrieveLocale(executor)["unable-to-parse-argument"]!!
-                                .replace("{arg}", args[offsetIndex])
-                        )
+                        throw exception
                     }
                 }
             )
