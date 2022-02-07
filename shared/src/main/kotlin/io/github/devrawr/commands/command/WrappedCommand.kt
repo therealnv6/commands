@@ -18,6 +18,10 @@ class WrappedCommand(
         name = name,
         parent = parent,
         method = {
+            it.forEach {
+                println(it!!.javaClass.name)
+            }
+
             method.invoke(instance, *it)
         }
     )
