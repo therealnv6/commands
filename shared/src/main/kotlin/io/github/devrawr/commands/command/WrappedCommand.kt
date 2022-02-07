@@ -58,7 +58,7 @@ class WrappedCommand(
             executor.toUser()?.let { arguments.add(it) }
         }
 
-        val start = if (skipFirst)
+        val offset = if (skipFirst)
         {
             1
         } else
@@ -66,11 +66,11 @@ class WrappedCommand(
             0
         }
 
-        for (i in start..this.arguments.size)
+        for (i in offset..this.arguments.size)
         {
             val argument = this.arguments[i]
 
-            if (args.size - 1 < i && argument.value == null)
+            if (args.size - 1 < i + offset && argument.value == null)
             {
                 throw ArgumentCountException(
                     Locale.retrieveLocale(executor)["does-not-meet-arguments"]!!
