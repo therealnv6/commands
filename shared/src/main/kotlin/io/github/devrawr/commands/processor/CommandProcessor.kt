@@ -25,13 +25,13 @@ abstract class CommandProcessor
         }
 
         val wrappedCommand = command.children.firstOrNull {
-            it.name.contains(args[0])
+            args.isNotEmpty() && it.name.contains(args[0])
         } ?: command
 
         if (wrappedCommand != command)
         {
             process(
-                executor, command, args.subList(1, args.size)
+                executor, wrappedCommand, args.subList(1, args.size)
             )
             return
         }
