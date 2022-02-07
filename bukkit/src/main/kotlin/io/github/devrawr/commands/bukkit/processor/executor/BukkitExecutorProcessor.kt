@@ -30,6 +30,6 @@ object BukkitExecutorProcessor : ExecutorProcessor<BukkitExecutor>()
 
     override fun isUser(type: Class<*>): Boolean
     {
-        return type.isAssignableFrom(CommandSender::class.java)
+        return CommandSender::class.java.isAssignableFrom(type)
     }
 }

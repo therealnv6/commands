@@ -32,7 +32,7 @@ abstract class CommandProcessor
                 continue
             }
 
-            if (this.platform.executorProcessor.isUser(argument.type))
+            if (executor.appliesToUser(argument.type))
             {
                 data[index] = user
                 continue
