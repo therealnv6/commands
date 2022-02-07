@@ -9,8 +9,8 @@ object Locale
         "en_US" to hashMapOf(
             "user-not-found" to "User could not be parsed from provided executor.",
             "unable-to-parse-executor" to "Executor could not be parsed from provided user.",
-            "does-not-meet-arguments" to "Usage: /{label} {arguments}",
-            "unable-to-parse-argument" to "Unable to parse argument from {arg}",
+            "does-not-meet-arguments" to "Incorrect usage, try: /{label} {arguments}",
+            "unable-to-parse-argument" to "Unable to parse argument from \"{arg}\"",
             "required-argument" to "<{name}>",
             "optional-argument" to "[{name}]",
             "error-prefix" to "Error: ",

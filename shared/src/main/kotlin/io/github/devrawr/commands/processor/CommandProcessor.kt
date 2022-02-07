@@ -3,7 +3,6 @@ package io.github.devrawr.commands.processor
 import io.github.devrawr.commands.CommandPlatform
 import io.github.devrawr.commands.Locale
 import io.github.devrawr.commands.command.WrappedCommand
-import io.github.devrawr.commands.exception.ArgumentCountException
 import io.github.devrawr.commands.exception.ArgumentException
 import io.github.devrawr.commands.processor.executor.Executor
 
@@ -25,14 +24,26 @@ abstract class CommandProcessor
             return
         }
 
+        val wrappedCommand = command.children.firstOrNull {
+            it.name.contains(args[0])
+        } ?: command
+
+        if (wrappedCommand != command)
+        {
+            process(
+                executor, command, args.subList(1, args.size)
+            )
+            return
+        }
+
         try
         {
-            val arguments = command.handleArguments(
+            val arguments = wrappedCommand.handleArguments(
                 executor = executor,
                 args = args.toTypedArray()
             )
 
-            command.method.invoke(arguments)
+            wrappedCommand.method.invoke(arguments)
         } catch (ignored: ArgumentException)
         {
             executor.sendMessage("${Locale.retrieveLocale(executor)["error-prefix"]!!}${ignored.message!!}")
