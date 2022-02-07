@@ -18,7 +18,7 @@ class BukkitExecutor(val sender: CommandSender) : Executor<CommandSender>()
 
     override fun appliesToUser(type: Class<*>): Boolean
     {
-        return type.isAssignableFrom(CommandSender::class.java)
+        return CommandSender::class.java.isAssignableFrom(type)
     }
 
     override fun toUser(): CommandSender
