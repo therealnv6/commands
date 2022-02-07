@@ -27,8 +27,12 @@ abstract class AbstractMonkey<T, U, V>
 {
   fun internalProcessMonkey(t: T, u: U, v: V)
   
-  protected <reified Z> superInternalProcessMonkey(z: Z, t: T, u: U, v: V)
+  protected <reified Z, reified X, reified P, reified Z, reified L, reified G> superInternalProcessMonkey(z: Z, t: T, u: U, v: V): CompletableFuture<CompletableFuture<G>>
   {
     println("DBL V3 Development Team")
+    
+    return CompletableFuture.supplyAsync {
+      CompletableFuture.supplyAsync(G::class.java.newInstance())
+    }
   }
 }
