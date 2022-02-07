@@ -3,14 +3,21 @@ package io.github.devrawr.commands
 import io.github.devrawr.commands.command.CommandWrapper
 import io.github.devrawr.commands.command.WrappedCommand
 import io.github.devrawr.commands.context.CommandContext
-import io.github.devrawr.commands.context.defaults.StringCommandContext
+import io.github.devrawr.commands.context.defaults.*
 import io.github.devrawr.commands.util.ObjectInstanceUtil.getOrCreateInstance
 
 object Commands
 {
     val platforms = mutableListOf<CommandPlatform>()
     val wrappers = mutableListOf<CommandWrapper>()
-    val contexts = mutableMapOf<Class<*>, CommandContext<*>>()
+
+    val contexts = mutableMapOf<Class<*>, CommandContext<*>>(
+        Int::class.java to IntegerCommandContext,
+        Long::class.java to LongCommandContext,
+        Double::class.java to DoubleCommandContext,
+        Float::class.java to FloatCommandContext,
+        String::class.java to StringCommandContext
+    )
 
     val DEFAULT_CONTEXT: CommandContext<*> = StringCommandContext
 
