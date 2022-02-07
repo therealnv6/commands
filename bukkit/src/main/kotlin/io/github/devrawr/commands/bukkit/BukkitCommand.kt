@@ -1,6 +1,5 @@
 package io.github.devrawr.commands.bukkit
 
-import io.github.devrawr.commands.Commands
 import io.github.devrawr.commands.Locale
 import io.github.devrawr.commands.command.WrappedCommand
 import org.bukkit.ChatColor

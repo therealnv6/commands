@@ -12,20 +12,20 @@ object Locale
             "required-argument" to "<{name}>",
             "optional-argument" to "[{name}]",
             "vararg-argument" to "..."
-        )
+        ),
     )
 
     const val defaultLocale = "en_US"
 
     fun retrieveLocale(
-        executor: Executor? = null
+        executor: Executor<*>? = null
     ): HashMap<String, String>
     {
         return locales[defaultLocale]!!
     }
 
     fun retrieveLocaleField(
-        executor: Executor? = null,
+        executor: Executor<*>? = null,
         field: String
     ): String
     {

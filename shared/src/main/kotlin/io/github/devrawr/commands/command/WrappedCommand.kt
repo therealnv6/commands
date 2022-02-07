@@ -1,16 +1,28 @@
 package io.github.devrawr.commands.command
 
-import io.github.devrawr.commands.Commands
 import io.github.devrawr.commands.Locale
 import java.lang.reflect.Method
 
 class WrappedCommand(
     val name: Array<String>,
-    val instance: Any,
-    val method: Method,
-    var parent: WrappedCommand? = null
+    var parent: WrappedCommand? = null,
+    val method: (Array<Any?>) -> Unit
 )
 {
+    constructor(
+        name: Array<String>,
+        instance: Any,
+        method: Method,
+        parent: WrappedCommand? = null
+    ) : this(
+        name = name,
+        parent = parent,
+        method = {
+            method.invoke(instance, *it)
+        }
+    )
+
+
     val children = mutableListOf<WrappedCommand>()
     var arguments = mutableListOf<WrappedArgument<*>>()
 

@@ -1,7 +1,6 @@
 package io.github.devrawr.commands.processor
 
 import io.github.devrawr.commands.CommandPlatform
-import io.github.devrawr.commands.Commands
 import io.github.devrawr.commands.Locale
 import io.github.devrawr.commands.command.WrappedCommand
 import io.github.devrawr.commands.processor.executor.Executor
@@ -11,12 +10,12 @@ abstract class CommandProcessor
     abstract val platform: CommandPlatform
 
     open fun process(
-        executor: Executor,
+        executor: Executor<*>,
         command: WrappedCommand,
         arguments: List<String>
     )
     {
-        val user = platform.executorProcessor.toUserCasted(executor)
+        val user = executor.toUser()
 
         if (user == null)
         {
@@ -36,6 +35,7 @@ abstract class CommandProcessor
             if (this.platform.executorProcessor.isUser(argument.type))
             {
                 data[index] = user
+                continue
             }
 
             if (arguments.size - 1 < index && argument.value == null)
@@ -60,6 +60,8 @@ abstract class CommandProcessor
             }
         }
 
-        command.method.invoke(command.instance, *data.values.toTypedArray())
+        data.values.toTypedArray().let {
+            command.method.invoke(it)
+        }
     }
 }

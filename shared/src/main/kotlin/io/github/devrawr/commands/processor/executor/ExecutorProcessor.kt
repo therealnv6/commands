@@ -1,8 +1,8 @@
 package io.github.devrawr.commands.processor.executor
 
-abstract class ExecutorProcessor<T : Executor>
+abstract class ExecutorProcessor<T : Executor<*>>
 {
-    fun toUserCasted(executor: Executor): Any?
+    fun toUserCasted(executor: Executor<*>): Any?
     {
         return this.toUser(executor as T)
     }

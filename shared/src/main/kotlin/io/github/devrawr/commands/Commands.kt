@@ -14,7 +14,8 @@ object Commands
 
     val DEFAULT_CONTEXT: CommandContext<*> = StringCommandContext
 
-    inline fun <reified T : CommandPlatform> usePlatform(noinline body: T.() -> Unit = {}) = usePlatform(T::class.java, body)
+    inline fun <reified T : CommandPlatform> usePlatform(noinline body: T.() -> Unit = {}) =
+        usePlatform(T::class.java, body)
 
     fun <T : CommandPlatform> usePlatform(
         type: Class<T>,
@@ -48,6 +49,24 @@ object Commands
     {
         return this.apply {
             this.contexts[keyType] = valueType.kotlin.getOrCreateInstance()
+        }
+    }
+
+    inline fun <reified T> createContext(noinline body: (String) -> T) = createContext(T::class.java, body)
+
+    fun <T> createContext(
+        type: Class<T>,
+        body: (String) -> T
+    ): Commands
+    {
+        return this.apply {
+            this.contexts[type] = object : CommandContext<T>
+            {
+                override fun fromString(value: String): T?
+                {
+                    return body.invoke(value)
+                }
+            }
         }
     }
 
