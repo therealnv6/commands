@@ -27,6 +27,13 @@ abstract class CommandProcessor
 
         for ((index, argument) in command.arguments.withIndex())
         {
+            val firstNull = data.size
+
+            if (firstNull == command.arguments.size)
+            {
+                break
+            }
+
             if (data[index] != null)
             {
                 continue
