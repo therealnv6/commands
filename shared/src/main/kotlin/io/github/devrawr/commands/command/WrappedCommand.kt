@@ -93,6 +93,10 @@ class WrappedCommand(
             )
         }
 
+        arguments.forEach {
+            println(it!!.javaClass.name)
+        }
+
         return arguments
             .toTypedArray()
     }
