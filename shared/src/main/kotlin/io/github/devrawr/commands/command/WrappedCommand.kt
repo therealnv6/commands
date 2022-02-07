@@ -32,8 +32,15 @@ class WrappedCommand(
         }
     )
 
-    private fun formatArguments() = arguments
+    private fun formatArguments(
+        executor: Executor<*>
+    ) = arguments
         .map {
+            if (it == arguments.first() && executor.appliesToUser(it.type))
+            {
+                return@map null
+            }
+
             val optional = it.value != null
             val localeType = if (optional)
             {
@@ -44,7 +51,9 @@ class WrappedCommand(
             }
 
             return@map Locale.retrieveLocale()[localeType]!!.replace("{name}", it.name)
-        }.joinToString(" ")
+        }
+        .filterNotNull()
+        .joinToString(" ")
 
     fun handleArguments(
         executor: Executor<*>,
@@ -78,7 +87,7 @@ class WrappedCommand(
                 throw ArgumentCountException(
                     Locale.retrieveLocale(executor)["does-not-meet-arguments"]!!
                         .replace("{label}", this.label)
-                        .replace("{arguments}", this.formatArguments())
+                        .replace("{arguments}", this.formatArguments(executor))
                 )
             }
 
