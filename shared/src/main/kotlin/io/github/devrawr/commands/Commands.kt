@@ -92,7 +92,7 @@ object Commands
     inline fun <reified T : CommandPlatform> createCommand(
         name: String,
         permission: String = "",
-        arguments: Array<T>,
+        arguments: Array<Any>,
         noinline body: (Array<Any?>) -> Unit
     ): Commands
     {
