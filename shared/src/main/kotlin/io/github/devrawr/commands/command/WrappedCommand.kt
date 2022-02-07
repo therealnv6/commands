@@ -66,8 +66,16 @@ class WrappedCommand(
 
         if (skipFirst)
         {
-            executor.toUser()?.let {
-                arguments.add(this.arguments[0].type.cast(it))
+            try
+            {
+                executor.toUser()?.let {
+                    arguments.add(this.arguments[0].type.cast(it))
+                }
+            } catch (ignored: ClassCastException)
+            {
+                throw ArgumentParseException(
+                    Locale.retrieveLocale(executor)["user-not-found"]!!
+                )
             }
         }
 
