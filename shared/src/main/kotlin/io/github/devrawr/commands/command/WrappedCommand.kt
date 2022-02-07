@@ -55,7 +55,9 @@ class WrappedCommand(
 
         if (skipFirst)
         {
-            executor.toUser()?.let { arguments.add(it) }
+            executor.toUser()?.let {
+                arguments.add(this.arguments[0].type.cast(it))
+            }
         }
 
         val offset = if (skipFirst)
