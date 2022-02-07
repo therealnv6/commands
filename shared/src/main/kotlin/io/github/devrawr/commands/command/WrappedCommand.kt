@@ -2,6 +2,7 @@ package io.github.devrawr.commands.command
 
 import io.github.devrawr.commands.Locale
 import io.github.devrawr.commands.exception.ArgumentCountException
+import io.github.devrawr.commands.exception.ArgumentParseException
 import io.github.devrawr.commands.processor.executor.Executor
 import java.lang.reflect.Method
 
@@ -92,7 +93,16 @@ class WrappedCommand(
                     arguments.subList(offsetIndex, args.size - 1).toTypedArray()
                 } else
                 {
-                    argument.convertToValue(args[offsetIndex])
+                    try
+                    {
+                        argument.convertToValue(args[offsetIndex])
+                    } catch (ignored: Exception)
+                    {
+                        throw ArgumentParseException(
+                            Locale.retrieveLocale(executor)["unable-to-parse-argument"]!!
+                                .replace("{arg}", args[offsetIndex])
+                        )
+                    }
                 }
             )
         }

@@ -1,3 +1,3 @@
 package io.github.devrawr.commands.exception
 
-class ArgumentCountException(reason: String) : Exception(reason)
+class ArgumentCountException(reason: String) : ArgumentException(reason)

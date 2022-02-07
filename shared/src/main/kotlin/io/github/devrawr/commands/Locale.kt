@@ -5,13 +5,15 @@ import io.github.devrawr.commands.processor.executor.Executor
 object Locale
 {
     const val defaultLocale = "en_US"
-    private val locales = hashMapOf(
+    val locales = hashMapOf(
         "en_US" to hashMapOf(
             "user-not-found" to "User could not be parsed from provided executor.",
             "unable-to-parse-executor" to "Executor could not be parsed from provided user.",
             "does-not-meet-arguments" to "Usage: /{label} {arguments}",
+            "unable-to-parse-argument" to "Unable to parse argument from {arg}",
             "required-argument" to "<{name}>",
             "optional-argument" to "[{name}]",
+            "error-prefix" to "Error: ",
             "vararg-argument" to "..."
         ),
     )

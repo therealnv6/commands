@@ -4,6 +4,7 @@ import io.github.devrawr.commands.CommandPlatform
 import io.github.devrawr.commands.Locale
 import io.github.devrawr.commands.command.WrappedCommand
 import io.github.devrawr.commands.exception.ArgumentCountException
+import io.github.devrawr.commands.exception.ArgumentException
 import io.github.devrawr.commands.processor.executor.Executor
 
 abstract class CommandProcessor
@@ -32,10 +33,9 @@ abstract class CommandProcessor
             )
 
             command.method.invoke(arguments)
-        } catch (ignored: ArgumentCountException)
+        } catch (ignored: ArgumentException)
         {
-            executor.sendMessage(ignored.message!!)
+            executor.sendMessage("${Locale.retrieveLocale(executor)["error-prefix"]!!}${ignored.message!!}")
         }
-
     }
 }
