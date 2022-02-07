@@ -70,7 +70,7 @@ class WrappedCommand(
         {
             val argument = this.arguments[i]
 
-            if (arguments.size - 1 < i && argument.value == null)
+            if (args.size - 1 < i && argument.value == null)
             {
                 throw ArgumentCountException(
                     Locale.retrieveLocale(executor)["does-not-meet-arguments"]!!
@@ -80,10 +80,10 @@ class WrappedCommand(
             }
 
             arguments.add(
-                if (arguments.size - 1 < i)
+                if (args.size - 1 < i)
                 {
                     argument.value
-                } else if (i == this.arguments.size - 1 && arguments.size > i && argument.type == Array<String>::class.java)
+                } else if (i == this.arguments.size - 1 && args.size > i && argument.type == Array<String>::class.java)
                 {
                     arguments.subList(i, args.size - 1).toTypedArray()
                 } else
