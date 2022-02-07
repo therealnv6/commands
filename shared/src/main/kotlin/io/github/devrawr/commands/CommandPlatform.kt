@@ -28,6 +28,6 @@ abstract class CommandPlatform
 
     fun wrapCommand(command: Any): List<WrappedCommand>
     {
-        return Commands.wrapCommand(command)
+        return Platforms.wrapCommand(command)
     }
 }

@@ -1,6 +1,6 @@
 package io.github.devrawr.commands.command.wrapper
 
-import io.github.devrawr.commands.Commands
+import io.github.devrawr.commands.Platforms
 import io.github.devrawr.commands.command.CommandWrapper
 import io.github.devrawr.commands.command.WrappedCommand
 import io.github.devrawr.commands.command.annotation.Command
@@ -11,7 +11,7 @@ import java.lang.reflect.Method
 
 object AnnotationCommandWrapper : CommandWrapper()
 {
-    override val platform = Commands.platforms.first()
+    override val platform = Platforms.usedPlatform!!
 
     override fun wrapCommand(
         command: Any,

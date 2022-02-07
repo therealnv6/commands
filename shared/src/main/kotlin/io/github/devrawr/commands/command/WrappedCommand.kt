@@ -1,6 +1,7 @@
 package io.github.devrawr.commands.command
 
 import io.github.devrawr.commands.Locale
+import io.github.devrawr.commands.command.argument.WrappedArgument
 import io.github.devrawr.commands.exception.ArgumentCountException
 import io.github.devrawr.commands.exception.ArgumentParseException
 import io.github.devrawr.commands.processor.executor.Executor

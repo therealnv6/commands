@@ -1,8 +1,9 @@
 package io.github.devrawr.commands.command
 
 import io.github.devrawr.commands.CommandPlatform
-import io.github.devrawr.commands.Commands
 import io.github.devrawr.commands.command.annotation.Value
+import io.github.devrawr.commands.command.argument.WrappedArgument
+import io.github.devrawr.commands.command.argument.context.Contexts
 import io.github.devrawr.commands.util.ParameterUtil.getAnnotation
 import java.lang.reflect.Method
 
@@ -23,8 +24,7 @@ abstract class CommandWrapper
         return method.parameters
             .map {
                 val value = it.getAnnotation<Value>()?.value
-                val context = Commands.contexts[it.type] ?: Commands.DEFAULT_CONTEXT
-
+                val context = Contexts.retrieveContext(it.type)
 
                 val wrappedValue = if (value != null)
                 {
