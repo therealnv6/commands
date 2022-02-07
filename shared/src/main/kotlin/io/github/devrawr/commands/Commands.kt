@@ -1,6 +1,7 @@
 package io.github.devrawr.commands
 
 import io.github.devrawr.commands.command.CommandWrapper
+import io.github.devrawr.commands.command.WrappedArgument
 import io.github.devrawr.commands.command.WrappedCommand
 import io.github.devrawr.commands.context.CommandContext
 import io.github.devrawr.commands.context.defaults.*
@@ -85,6 +86,34 @@ object Commands
             platforms.firstOrNull {
                 it.javaClass == T::class.java
             }?.registerCommand(command)
+        }
+    }
+
+    inline fun <reified T : CommandPlatform> createCommand(
+        name: String,
+        permission: String = "",
+        arguments: Array<T>,
+        noinline body: (Array<Any?>) -> Unit
+    ): Commands
+    {
+        return this.apply {
+            this.platforms.firstOrNull {
+                it.javaClass == T::class.java
+            }?.registerCommand(
+                WrappedCommand(
+                    name = name.split("|").toTypedArray(),
+                    method = body
+                ).apply {
+                    this.permission = permission
+                    this.arguments = arguments.map {
+                        WrappedArgument(
+                            name = "arg",
+                            type = it.javaClass,
+                            context = contexts[it.javaClass] as CommandContext<Any>
+                        )
+                    }.toMutableList()
+                }
+            )
         }
     }
 
