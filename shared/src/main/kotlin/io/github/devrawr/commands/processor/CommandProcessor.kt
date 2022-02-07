@@ -3,6 +3,7 @@ package io.github.devrawr.commands.processor
 import io.github.devrawr.commands.CommandPlatform
 import io.github.devrawr.commands.Locale
 import io.github.devrawr.commands.command.WrappedCommand
+import io.github.devrawr.commands.exception.ArgumentCountException
 import io.github.devrawr.commands.processor.executor.Executor
 
 abstract class CommandProcessor
@@ -12,7 +13,7 @@ abstract class CommandProcessor
     open fun process(
         executor: Executor<*>,
         command: WrappedCommand,
-        arguments: List<String>
+        args: List<String>
     )
     {
         val user = executor.toUser()
@@ -23,11 +24,18 @@ abstract class CommandProcessor
             return
         }
 
-        command.method.invoke(
-            command.handleArguments(
+        try
+        {
+            val arguments = command.handleArguments(
                 executor = executor,
-                args = arguments.toTypedArray()
+                args = args.toTypedArray()
             )
-        )
+
+            command.method.invoke(arguments)
+        } catch (ignored: ArgumentCountException)
+        {
+            executor.sendMessage(ignored.message!!)
+        }
+
     }
 }

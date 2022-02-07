@@ -72,12 +72,11 @@ class WrappedCommand(
 
             if (arguments.size - 1 < i && argument.value == null)
             {
-                val message = Locale.retrieveLocale(executor)["does-not-meet-arguments"]!!
-                    .replace("{label}", this.label)
-                    .replace("{arguments}", this.formatArguments())
-
-                executor.sendMessage(message)
-                throw ArgumentCountException(message)
+                throw ArgumentCountException(
+                    Locale.retrieveLocale(executor)["does-not-meet-arguments"]!!
+                        .replace("{label}", this.label)
+                        .replace("{arguments}", this.formatArguments())
+                )
             }
 
             arguments.add(
