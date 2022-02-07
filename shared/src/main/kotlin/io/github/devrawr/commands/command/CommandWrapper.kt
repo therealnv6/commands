@@ -25,28 +25,21 @@ abstract class CommandWrapper
                 val value = it.getAnnotation<Value>()?.value
                 val context = Commands.contexts[it.type] ?: Commands.DEFAULT_CONTEXT
 
-                if (it == method.parameters.first() && platform.executorProcessor.isUser(it.type))
+
+                val wrappedValue = if (value != null)
                 {
-                    return@map null
+                    context.fromString(value)
                 } else
                 {
-
-                    val wrappedValue = if (value != null)
-                    {
-                        context.fromString(value)
-                    } else
-                    {
-                        null
-                    }
-
-                    WrappedArgument(
-                        name = it.name,
-                        type = it.type,
-                        context = context,
-                        value = wrappedValue
-                    )
+                    null
                 }
+
+                WrappedArgument(
+                    name = it.name,
+                    type = it.type,
+                    context = context,
+                    value = wrappedValue
+                )
             }
-            .filterNotNull()
     }
 }
