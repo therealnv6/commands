@@ -4,6 +4,7 @@ import io.github.devrawr.commands.processor.executor.Executor
 
 object Locale
 {
+    const val defaultLocale = "en_US"
     private val locales = hashMapOf(
         "en_US" to hashMapOf(
             "user-not-found" to "User could not be parsed from provided executor.",
@@ -14,8 +15,6 @@ object Locale
             "vararg-argument" to "..."
         ),
     )
-
-    const val defaultLocale = "en_US"
 
     fun retrieveLocale(
         executor: Executor<*>? = null
