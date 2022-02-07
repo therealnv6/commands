@@ -109,8 +109,11 @@ class WrappedCommand(
             )
         }
 
+        arguments.forEach {
+            println(it!!.javaClass.name)
+        }
+
         return arguments
-            .filterNotNull()
             .toTypedArray()
     }
 }
