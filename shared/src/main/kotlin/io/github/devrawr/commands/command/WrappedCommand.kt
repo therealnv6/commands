@@ -70,7 +70,7 @@ class WrappedCommand(
         {
             val argument = this.arguments[i]
 
-            if (args.size - 1 < i + offset && argument.value == null)
+            if (argument.value == null && args.size - 1 < i + offset)
             {
                 throw ArgumentCountException(
                     Locale.retrieveLocale(executor)["does-not-meet-arguments"]!!
