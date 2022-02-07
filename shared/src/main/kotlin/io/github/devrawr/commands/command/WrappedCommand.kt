@@ -90,7 +90,11 @@ class WrappedCommand(
                     argument.value
                 } else if (i == this.arguments.size - 1 && args.size > offsetIndex && argument.type == Array<String>::class.java)
                 {
-                    arguments.subList(offsetIndex, args.size - 1).toTypedArray()
+                    arguments.subList(offsetIndex, args.size - 1)
+                        .toTypedArray()
+                        .map {
+                            it as String
+                        }
                 } else
                 {
                     val exception = ArgumentParseException(
@@ -107,10 +111,6 @@ class WrappedCommand(
                     }
                 }
             )
-        }
-
-        arguments.forEach {
-            println(it!!.javaClass.name)
         }
 
         return arguments
