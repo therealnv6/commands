@@ -79,25 +79,24 @@ class WrappedCommand(
                 )
             }
 
+            val offsetIndex = i - offset
+
             arguments.add(
-                if (args.size - 1 < i)
+                if (args.size - 1 < offsetIndex)
                 {
                     argument.value
-                } else if (i == this.arguments.size - 1 && args.size > i && argument.type == Array<String>::class.java)
+                } else if (i == this.arguments.size - 1 && args.size > offsetIndex && argument.type == Array<String>::class.java)
                 {
-                    arguments.subList(i, args.size - 1).toTypedArray()
+                    arguments.subList(offsetIndex, args.size - 1).toTypedArray()
                 } else
                 {
-                    argument.convertToValue(args[i])
+                    argument.convertToValue(args[offsetIndex])
                 }
             )
         }
 
-        arguments.forEach {
-            println(it!!.javaClass.name)
-        }
-
         return arguments
+            .filterNotNull()
             .toTypedArray()
     }
 }
