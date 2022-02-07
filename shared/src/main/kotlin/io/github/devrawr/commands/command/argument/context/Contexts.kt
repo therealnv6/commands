@@ -49,4 +49,8 @@ object Contexts
         return (this.contexts[type] as ArgumentContext<T>?)!!
     }
 
+    fun <T> retrieveAnyContext(type: Class<T>): ArgumentContext<*>
+    {
+        return (this.contexts[type] ?: this.contexts[String::class.java]!!)
+    }
 }

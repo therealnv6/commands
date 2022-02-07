@@ -24,7 +24,7 @@ abstract class CommandWrapper
         return method.parameters
             .map {
                 val value = it.getAnnotation<Value>()?.value
-                val context = Contexts.retrieveContext(it.type)
+                val context = Contexts.retrieveAnyContext(it.type)
 
                 val wrappedValue = if (value != null)
                 {
