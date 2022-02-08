@@ -4,6 +4,7 @@ import io.github.devrawr.commands.CommandPlatform
 import io.github.devrawr.commands.Locale
 import io.github.devrawr.commands.command.WrappedCommand
 import io.github.devrawr.commands.exception.ArgumentException
+import io.github.devrawr.commands.exception.ConditionFailedException
 import io.github.devrawr.commands.processor.executor.Executor
 
 abstract class CommandProcessor
@@ -44,9 +45,16 @@ abstract class CommandProcessor
             )
 
             wrappedCommand.method.invoke(arguments)
-        } catch (ignored: ArgumentException)
+        } catch (exception: Exception)
         {
-            executor.sendMessage("${Locale.retrieveLocale(executor)["error-prefix"]!!}${ignored.message!!}")
+            when (exception)
+            {
+                is ArgumentException,
+                is ConditionFailedException ->
+                {
+                    executor.sendMessage("${Locale.retrieveLocale(executor)["error-prefix"]!!}${exception.message!!}")
+                }
+            }
         }
     }
 }
