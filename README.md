@@ -1,8 +1,9 @@
 # Commands
+
 simplistic, work in progress, command framework.
 
-
 # Usages
+
 | Platform    | Platform Class Name   | Help Template |
 | ----------- | --------------------- | ------------- |
 | bukkit      | BukkitCommandPlatform | todo          |
@@ -12,8 +13,8 @@ simplistic, work in progress, command framework.
 | ---------------- | ------------------------ |
 | annotation-based | AnnotationCommandWrapper |
 
-
 ## build.gradle
+
 ```groovy
 def versionPlatform = "a92ba104e6"
 def platforms = [
@@ -35,6 +36,7 @@ dependencies {
 ```
 
 ## Platform Initialization
+
 ```kotlin
 fun main()
 {
@@ -47,8 +49,11 @@ fun main()
 ```
 
 ## Create Command
+
 ### Annotation Based Command
+
 #### Parent & sub-command
+
 ```kotlin
 @Command("name|alias1|alias2")
 class TestCommand
@@ -62,7 +67,7 @@ class TestCommand
             player.sendMessage("iteration $amount")
         }
     }
-    
+
     @Command("subcommand|subcommandalias1") // subcommand of parent command
     @CommandPermission("permission")
     fun subcommand(player: Player, message: Array<String>)
@@ -73,6 +78,7 @@ class TestCommand
 ```
 
 #### Several parent commands
+
 ```kotlin
 class TestCommand
 {
@@ -85,7 +91,7 @@ class TestCommand
             player.sendMessage("iteration $amount")
         }
     }
-    
+
     @Command("subcommand|subcommandalias1") // other parent command
     @CommandPermission("permission")
     fun subcommand(player: Player, message: Array<String>)
@@ -96,6 +102,7 @@ class TestCommand
 ```
 
 ### Making command without annotations (untested)
+
 ```kotlin
 fun main()
 {
@@ -105,7 +112,7 @@ fun main()
     ) {
         val player = it[0] as Player
         val message = it[1] as Array<String>
-        
+
         player.sendMessage(message.joinToString(" "))
     }
 }
