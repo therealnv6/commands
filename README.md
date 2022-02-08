@@ -117,3 +117,27 @@ fun main()
     }
 }
 ```
+
+### Registering a new argument context
+#### Creating new context through the ArgumentContext\<T> class
+```kotlin
+object PlayerContext : ArgumentContext<Player>
+{
+    override fun fromString(value: String): Player?
+    {
+        return Bukkit.getPlayer(value)
+    }
+}
+```
+
+#### Registering and creating context in functional way
+```kotlin
+fun main()
+{
+    Contexts
+        .useContext<Player, PlayerContext>()
+        .createContext { // create a new context, provided body is fromString method.
+            ChatColor.valueOf(it)
+        }
+}
+```
