@@ -9,7 +9,7 @@ import java.util.*
 
 class HelpTopic(val command: WrappedCommand)
 {
-    val processor: HelpProcessor<*> = Platforms.usedPlatform!!.helpProcessor
+    val processor: HelpProcessor = Platforms.usedPlatform!!.helpProcessor
 
     val pageMap = hashMapOf<UUID, Int>()
     val entryPerPage = Locale.retrieveLocaleField<Int>(LocaleKeys.HELP_ENTRY_PER_PAGE)
@@ -27,6 +27,23 @@ class HelpTopic(val command: WrappedCommand)
         message.add(
             Locale.retrieveLocaleField<String>(LocaleKeys.HELP_TITLE, executor)
                 .replace("{parent}", this.command.label)
+        )
+
+        for (entry in entries)
+        {
+            message.add(
+                Locale.retrieveLocaleField<String>(LocaleKeys.HELP_ENTRY, executor)
+                    .replace("{label}", entry.label)
+                    .replace("{args}", entry.formatArguments(executor))
+                    .replace("{description}", command.description)
+            )
+        }
+
+        message.add(
+            Locale.retrieveLocaleField<String>(LocaleKeys.HELP_FOOTER, executor)
+                .replace("{page-current}", page.toString())
+                .replace("{page-max}", ((this.command.children.size + 1) / entryPerPage).toString())
+                .replace("{results}", entries.size.toString())
         )
 
         return processor.createBody(message)

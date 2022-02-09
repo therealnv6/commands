@@ -5,4 +5,5 @@ import io.github.devrawr.commands.processor.executor.Executor
 abstract class HelpBody
 {
     abstract fun sendBodyToExecutor(executor: Executor<*>)
+    abstract fun getAsString(): String
 }

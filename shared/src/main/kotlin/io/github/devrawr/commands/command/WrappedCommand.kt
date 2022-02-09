@@ -5,11 +5,11 @@ import io.github.devrawr.commands.command.argument.WrappedArgument
 import io.github.devrawr.commands.exception.ArgumentCountException
 import io.github.devrawr.commands.exception.ArgumentParseException
 import io.github.devrawr.commands.processor.executor.Executor
+import io.github.devrawr.commands.processor.help.HelpTopic
 import java.lang.reflect.Method
 
 class WrappedCommand(
     val name: Array<String>,
-    var parent: WrappedCommand? = null,
     val method: (Array<Any?>) -> Unit
 )
 {
@@ -19,21 +19,22 @@ class WrappedCommand(
     val label = name.first()
 
     var permission: String = ""
+    var description: String = "No description"
+
+    val helpTopic =  HelpTopic(this)
 
     constructor(
         name: Array<String>,
         instance: Any,
         method: Method,
-        parent: WrappedCommand? = null
     ) : this(
         name = name,
-        parent = parent,
         method = {
             method.invoke(instance, *it)
         }
     )
 
-    private fun formatArguments(
+    fun formatArguments(
         executor: Executor<*>
     ) = arguments
         .map {

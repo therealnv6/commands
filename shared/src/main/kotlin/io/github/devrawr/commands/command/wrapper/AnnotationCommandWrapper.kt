@@ -6,6 +6,7 @@ import io.github.devrawr.commands.command.WrappedCommand
 import io.github.devrawr.commands.command.annotation.Command
 import io.github.devrawr.commands.command.annotation.CommandPermission
 import io.github.devrawr.commands.command.annotation.Default
+import io.github.devrawr.commands.command.annotation.HelpDescription
 import io.github.devrawr.commands.util.ParameterUtil.getAnnotation
 import java.lang.reflect.Method
 
@@ -34,6 +35,7 @@ object AnnotationCommandWrapper : CommandWrapper()
                     method = command
                 ).apply {
                     this.permission = command.getAnnotation<CommandPermission>()?.value ?: ""
+                    this.description = command.getAnnotation<HelpDescription>()?.value ?: ""
                     this.arguments = wrapArguments(command).toMutableList()
                 }
             )
@@ -71,6 +73,7 @@ object AnnotationCommandWrapper : CommandWrapper()
                         method = method
                     ).apply {
                         this.permission = clazz.getAnnotation<CommandPermission>()?.value ?: ""
+                        this.description = clazz.getAnnotation<HelpDescription>()?.value ?: ""
                         this.arguments = wrapArguments(method).toMutableList()
 
                         for (declaredMethod in clazz.declaredMethods)

@@ -20,16 +20,13 @@ class CustomBukkitHelpTopic(private val bukkitCommand: BukkitCommand) : GenericC
             throw IllegalStateException("May not use ${this.javaClass.name} from ${Platforms.usedPlatform!!.javaClass.name} context.")
         }
 
-        val processor = platform.helpProcessor
         val executor = platform.executorProcessor.fromUser(forWho)
             ?: throw RuntimeException(
                 Locale.retrieveLocale()["unable-to-parse-executor"]!!
             )
 
-        return processor.generateHelp(
-            0,
-            executor,
-            bukkitCommand.command
-        )
+        return bukkitCommand.command.helpTopic
+            .createHelpBody(executor)
+            .getAsString()
     }
 }

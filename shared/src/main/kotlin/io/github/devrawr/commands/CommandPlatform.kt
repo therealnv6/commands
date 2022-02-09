@@ -9,7 +9,7 @@ import io.github.devrawr.commands.util.ObjectInstanceUtil.getOrCreateInstance
 abstract class CommandPlatform
 {
     abstract val executorProcessor: ExecutorProcessor<*>
-    abstract val helpProcessor: HelpProcessor<*>
+    abstract val helpProcessor: HelpProcessor
     abstract val commandProcessor: CommandProcessor
 
     abstract fun registerCommand(command: WrappedCommand)
