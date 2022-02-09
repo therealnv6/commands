@@ -1,7 +1,11 @@
 package io.github.devrawr.commands.processor.executor
 
+import java.util.*
+
 abstract class Executor<T>
 {
+    abstract val id: UUID
+
     abstract fun sendMessage(message: String)
     abstract fun hasPermission(permission: String): Boolean
     abstract fun appliesToUser(type: Class<*>): Boolean

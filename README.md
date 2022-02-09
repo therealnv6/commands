@@ -13,8 +13,6 @@ simplistic, work in progress, command framework.
 | ---------------- | ------------------------ |
 | annotation-based | AnnotationCommandWrapper |
 
-## build.gradle
-
 ```groovy
 def versionPlatform = "a92ba104e6"
 def platforms = [
@@ -84,7 +82,7 @@ class TestCommand
 {
     @Command("name|alias1|alias2") // first parent command
     @CommandPermission("permission")
-    fun default(player: Player, amount: Int)
+    fun command1(player: Player, amount: Int)
     {
         for (i in 0..amount)
         {
@@ -92,9 +90,9 @@ class TestCommand
         }
     }
 
-    @Command("subcommand|subcommandalias1") // other parent command
+    @Command("command2name|command2alias") // other parent command
     @CommandPermission("permission")
-    fun subcommand(player: Player, message: Array<String>)
+    fun command2(player: Player, message: Array<String>)
     {
         player.sendMessage(message.joinToString(" "))
     }

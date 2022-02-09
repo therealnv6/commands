@@ -3,11 +3,13 @@ package io.github.devrawr.commands
 import io.github.devrawr.commands.command.WrappedCommand
 import io.github.devrawr.commands.processor.CommandProcessor
 import io.github.devrawr.commands.processor.executor.ExecutorProcessor
+import io.github.devrawr.commands.processor.help.HelpProcessor
 import io.github.devrawr.commands.util.ObjectInstanceUtil.getOrCreateInstance
 
 abstract class CommandPlatform
 {
     abstract val executorProcessor: ExecutorProcessor<*>
+    abstract val helpProcessor: HelpProcessor<*>
     abstract val commandProcessor: CommandProcessor
 
     abstract fun registerCommand(command: WrappedCommand)

@@ -1,12 +1,13 @@
-package io.github.devrawr.commands.bukkit
+package io.github.devrawr.commands.bukkit.processor
 
 import io.github.devrawr.commands.Locale
+import io.github.devrawr.commands.bukkit.BukkitCommandPlatform
 import io.github.devrawr.commands.command.WrappedCommand
 import org.bukkit.ChatColor
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 
-class BukkitCommand(private val command: WrappedCommand) : Command(command.label)
+class BukkitCommand(val command: WrappedCommand) : Command(command.label)
 {
     init
     {

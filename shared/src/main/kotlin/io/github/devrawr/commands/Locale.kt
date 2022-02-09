@@ -1,5 +1,6 @@
 package io.github.devrawr.commands
 
+import io.github.devrawr.commands.command.argument.context.Contexts
 import io.github.devrawr.commands.processor.executor.Executor
 
 object Locale
@@ -7,14 +8,19 @@ object Locale
     var defaultLocale = "en_US"
     val locales = hashMapOf(
         "en_US" to hashMapOf(
-            "user-not-found" to "User could not be parsed from provided executor.",
-            "unable-to-parse-executor" to "Executor could not be parsed from provided user.",
-            "does-not-meet-arguments" to "Incorrect usage, try: /{label} {arguments}",
-            "unable-to-parse-argument" to "Unable to parse argument from \"{arg}\"",
-            "required-argument" to "<{name}>",
-            "optional-argument" to "[{name}]",
-            "error-prefix" to "Error: ",
-            "vararg-argument" to "..."
+            LocaleKeys.USER_NOT_FOUND to "User could not be parsed from provided executor.",
+            LocaleKeys.UNABLE_TO_PARSE_EXECUTOR to "Executor could not be parsed from provided user.",
+            LocaleKeys.DOES_NOT_MEET_ARGUMENTS to "Incorrect usage, try: /{label} {arguments}",
+            LocaleKeys.UNABLE_TO_PARSE_ARGUMENT to "Unable to parse argument from \"{arg}\"",
+            LocaleKeys.REQUIRED_ARGUMENT to "<{name}>",
+            LocaleKeys.OPTIONAL_ARGUMENT to "[{name}]",
+            LocaleKeys.ERROR_PREFIX to "Error: ",
+            LocaleKeys.VARARG_ARGUMENT to "...",
+            LocaleKeys.HELP_ENTRY_PER_PAGE to "6",
+
+            LocaleKeys.HELP_TITLE to "=== Showing help for /{parent} ===",
+            LocaleKeys.HELP_ENTRY to "/{label} {args} - {description}",
+            LocaleKeys.HELP_FOOTER to "Showing page {page-current} of {page-max} ({results} results)"
         )
     )
 
@@ -25,11 +31,29 @@ object Locale
         return locales[executor?.getLocaleType() ?: defaultLocale]!!
     }
 
-    fun retrieveLocaleField(
-        executor: Executor<*>? = null,
-        field: String
-    ): String
+    inline fun <reified T> retrieveLocaleField(
+        field: String,
+        executor: Executor<*>? = null
+    ): T
     {
-        return this.retrieveLocale(executor)[field]!!
+        return Contexts.retrieveContext(T::class.java).fromString(
+            locales[executor?.getLocaleType() ?: defaultLocale]!![field]!!
+        )!!
     }
+}
+
+object LocaleKeys
+{
+    const val USER_NOT_FOUND = "user-not-found"
+    const val UNABLE_TO_PARSE_EXECUTOR = "unable-to-parse-executor"
+    const val DOES_NOT_MEET_ARGUMENTS = "does-not-meet-arguments"
+    const val UNABLE_TO_PARSE_ARGUMENT = "unable-to-parse-argument"
+    const val REQUIRED_ARGUMENT = "required-argument"
+    const val OPTIONAL_ARGUMENT = "optional-argument"
+    const val ERROR_PREFIX = "error-prefix"
+    const val VARARG_ARGUMENT = "vararg-argument"
+    const val HELP_ENTRY_PER_PAGE = "help-entry-per-page"
+    const val HELP_TITLE = "help-title"
+    const val HELP_ENTRY = "help-entry"
+    const val HELP_FOOTER = "help-footer"
 }
