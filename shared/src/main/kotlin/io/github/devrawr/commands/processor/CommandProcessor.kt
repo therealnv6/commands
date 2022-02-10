@@ -44,7 +44,23 @@ abstract class CommandProcessor
                 args = args.toTypedArray()
             )
 
-            wrappedCommand.method.invoke(arguments)
+            if (wrappedCommand.help)
+            {
+                val page = arguments[0]
+                val topic = wrappedCommand.helpTopic
+
+                if (page is Int)
+                {
+                    topic.pageMap[executor.id] = page
+                }
+
+                topic
+                    .createHelpBody(executor)
+                    .sendBodyToExecutor(executor)
+            } else
+            {
+                wrappedCommand.method.invoke(arguments)
+            }
         } catch (exception: Exception)
         {
             when (exception)

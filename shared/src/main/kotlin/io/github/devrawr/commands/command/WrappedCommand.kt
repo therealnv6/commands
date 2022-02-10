@@ -20,6 +20,7 @@ class WrappedCommand(
 
     var permission: String = ""
     var description: String = "No description"
+    var help = false
 
     val helpTopic =  HelpTopic(this)
 

@@ -10,9 +10,9 @@ import java.util.*
 class HelpTopic(val command: WrappedCommand)
 {
     val processor: HelpProcessor = Platforms.usedPlatform!!.helpProcessor
-
     val pageMap = hashMapOf<UUID, Int>()
-    val entryPerPage = Locale.retrieveLocaleField<Int>(LocaleKeys.HELP_ENTRY_PER_PAGE)
+
+    private val entryPerPage = Locale.retrieveLocaleField<Int>(LocaleKeys.HELP_ENTRY_PER_PAGE)
 
     fun createHelpBody(executor: Executor<*>): HelpBody
     {
@@ -58,7 +58,7 @@ class HelpTopic(val command: WrappedCommand)
      * executor does not have sufficient
      * permissions for to execute.
      */
-    fun getHelpEntries(executor: Executor<*>): List<WrappedCommand>
+    private fun getHelpEntries(executor: Executor<*>): List<WrappedCommand>
     {
         val entries = mutableListOf<WrappedCommand>()
 

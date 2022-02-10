@@ -9,6 +9,7 @@ import org.bukkit.help.GenericCommandHelpTopic
 import java.lang.IllegalStateException
 import java.lang.RuntimeException
 
+// TODO: 2/10/2022 implement custom commandMap to register this
 class CustomBukkitHelpTopic(private val bukkitCommand: BukkitCommand) : GenericCommandHelpTopic(bukkitCommand)
 {
     override fun getFullText(forWho: CommandSender): String
@@ -20,12 +21,13 @@ class CustomBukkitHelpTopic(private val bukkitCommand: BukkitCommand) : GenericC
             throw IllegalStateException("May not use ${this.javaClass.name} from ${Platforms.usedPlatform!!.javaClass.name} context.")
         }
 
+        val topic = bukkitCommand.command.helpTopic
         val executor = platform.executorProcessor.fromUser(forWho)
             ?: throw RuntimeException(
                 Locale.retrieveLocale()["unable-to-parse-executor"]!!
             )
 
-        return bukkitCommand.command.helpTopic
+        return topic
             .createHelpBody(executor)
             .getAsString()
     }

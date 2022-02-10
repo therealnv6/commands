@@ -44,6 +44,8 @@ object Contexts
         }
     }
 
+    inline fun <reified T> retrieveContext(): ArgumentContext<T> = retrieveContext(T::class.java)
+
     fun <T> retrieveContext(type: Class<T>): ArgumentContext<T>
     {
         return (this.contexts[type] as ArgumentContext<T>?)!!
