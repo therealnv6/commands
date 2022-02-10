@@ -2,6 +2,7 @@ package io.github.devrawr.commands.processor
 
 import io.github.devrawr.commands.CommandPlatform
 import io.github.devrawr.commands.Locale
+import io.github.devrawr.commands.LocaleKeys
 import io.github.devrawr.commands.command.WrappedCommand
 import io.github.devrawr.commands.exception.ArgumentException
 import io.github.devrawr.commands.exception.ConditionFailedException
@@ -39,6 +40,16 @@ abstract class CommandProcessor
 
         try
         {
+            if (!executor.hasPermission(command.permission))
+            {
+                throw ConditionFailedException(
+                    Locale.retrieveLocaleField(
+                        LocaleKeys.INSUFFICIENT_PERMISSIONS,
+                        executor
+                    )
+                )
+            }
+
             val arguments = wrappedCommand.handleArguments(
                 executor = executor,
                 args = args.toTypedArray()

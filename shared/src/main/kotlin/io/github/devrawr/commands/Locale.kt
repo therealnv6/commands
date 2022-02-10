@@ -26,6 +26,7 @@ object Locale
             LocaleKeys.ERROR_PREFIX to "Error: ",
             LocaleKeys.VARARG_ARGUMENT to "...",
             LocaleKeys.HELP_ENTRY_PER_PAGE to "6",
+            LocaleKeys.INSUFFICIENT_PERMISSIONS to "You have insufficient permissions to execute this.",
 
             LocaleKeys.HELP_TITLE to "=== Showing help for /{parent} ===",
             LocaleKeys.HELP_ENTRY to "/{label} {args} - {description}",
@@ -101,6 +102,7 @@ object Locale
 object LocaleKeys
 {
     const val USER_NOT_FOUND = "user-not-found"
+    const val INSUFFICIENT_PERMISSIONS = "insufficient-permissions"
     const val UNABLE_TO_PARSE_EXECUTOR = "unable-to-parse-executor"
     const val DOES_NOT_MEET_ARGUMENTS = "does-not-meet-arguments"
     const val UNABLE_TO_PARSE_ARGUMENT = "unable-to-parse-argument"
