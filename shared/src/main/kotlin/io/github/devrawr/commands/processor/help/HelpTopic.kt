@@ -48,7 +48,7 @@ class HelpTopic(val command: WrappedCommand)
                 Locale.retrieveLocaleField<String>(LocaleKeys.HELP_ENTRY, executor)
                     .replace("{label}", label)
                     .replace("{args}", entry.formatArguments(executor))
-                    .replace("{description}", command.description)
+                    .replace("{description}", entry.description)
             )
         }
 

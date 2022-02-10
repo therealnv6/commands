@@ -74,7 +74,6 @@ object AnnotationCommandWrapper : CommandWrapper()
                         method = method
                     ).apply {
                         this.permission = clazz.getAnnotation<CommandPermission>()?.value ?: ""
-
                         this.description = method.getAnnotation<HelpDescription>()?.value ?: ""
                         this.help = method.getAnnotation<Help>() != null
 
