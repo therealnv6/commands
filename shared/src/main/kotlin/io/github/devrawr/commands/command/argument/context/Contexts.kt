@@ -2,6 +2,7 @@ package io.github.devrawr.commands.command.argument.context
 
 import io.github.devrawr.commands.command.argument.context.defaults.*
 import io.github.devrawr.commands.util.ObjectInstanceUtil.getOrCreateInstance
+import java.util.*
 
 object Contexts
 {
@@ -10,7 +11,8 @@ object Contexts
         Long::class.java to LongArgumentContext,
         Double::class.java to DoubleArgumentContext,
         Float::class.java to FloatArgumentContext,
-        String::class.java to StringArgumentContext
+        String::class.java to StringArgumentContext,
+        UUID::class.java to UUIDArgumentContext,
     )
 
 

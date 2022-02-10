@@ -11,6 +11,7 @@ import io.github.devrawr.commands.processor.help.HelpProcessor
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.command.CommandMap
+import java.util.*
 
 object BukkitCommandPlatform : CommandPlatform()
 {
@@ -33,16 +34,10 @@ object BukkitCommandPlatform : CommandPlatform()
 
     init
     {
-        Locale.locales["bukkit"] = hashMapOf(
-            "user-not-found" to "User could not be parsed from provided executor.",
-            "unable-to-parse-executor" to "Executor could not be parsed from provided user.",
-            "does-not-meet-arguments" to "Incorrect usage, try: /{label} {arguments}",
-            "unable-to-parse-argument" to "Unable to parse argument from \"{arg}\"",
-            "required-argument" to "<{name}>",
-            "optional-argument" to "[{name}]",
-            "error-prefix" to "${ChatColor.RED}Error: ${ChatColor.WHITE}",
-            "vararg-argument" to "..."
-        )
+        for (entry in Locale.locales.entries)
+        {
+            Locale.locales[entry.key]!!["cli-id"] = UUID.randomUUID().toString()
+        }
     }
 
     override fun registerCommand(command: WrappedCommand)

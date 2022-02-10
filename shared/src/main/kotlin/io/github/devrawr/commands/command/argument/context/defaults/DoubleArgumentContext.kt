@@ -4,8 +4,5 @@ import io.github.devrawr.commands.command.argument.context.ArgumentContext
 
 object DoubleArgumentContext : ArgumentContext<Double>
 {
-    override fun fromString(value: String): Double?
-    {
-        return value.toDoubleOrNull()
-    }
+    override fun fromString(value: String) = value.toDoubleOrNull()
 }

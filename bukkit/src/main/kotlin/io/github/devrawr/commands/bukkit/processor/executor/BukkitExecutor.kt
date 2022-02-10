@@ -1,5 +1,6 @@
 package io.github.devrawr.commands.bukkit.processor.executor
 
+import io.github.devrawr.commands.Locale
 import io.github.devrawr.commands.processor.executor.Executor
 import org.bukkit.ChatColor
 import org.bukkit.command.CommandSender
@@ -14,7 +15,7 @@ class BukkitExecutor(val sender: CommandSender) : Executor<CommandSender>()
             sender.uniqueId
         } else
         {
-            UUID.randomUUID()
+            Locale.retrieveLocaleField("cli-id")
         }
     }
 
