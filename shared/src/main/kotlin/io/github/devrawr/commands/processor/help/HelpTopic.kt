@@ -16,10 +16,16 @@ class HelpTopic(val command: WrappedCommand)
 
     fun createHelpBody(executor: Executor<*>): HelpBody
     {
+        println("creating help body")
+
         val page = pageMap.putIfAbsent(executor.id, 0) ?: pageMap[executor.id]!!
+
+        println("page is $page")
 
         val min = page * entryPerPage
         val max = min + this.entryPerPage
+
+        println("min/max is $min, $max respectively")
 
         val entries = this.getHelpEntries(executor).subList(min, max)
         val message = mutableListOf<String>()
@@ -29,8 +35,12 @@ class HelpTopic(val command: WrappedCommand)
                 .replace("{parent}", this.command.label)
         )
 
+        println("added to message, $message")
+
         for (entry in entries)
         {
+            println("found new entry!")
+
             message.add(
                 Locale.retrieveLocaleField<String>(LocaleKeys.HELP_ENTRY, executor)
                     .replace("{label}", entry.label)
@@ -46,7 +56,7 @@ class HelpTopic(val command: WrappedCommand)
                 .replace("{results}", entries.size.toString())
         )
 
-        println(message)
+        println("returning now.")
 
         return processor.createBody(message)
     }

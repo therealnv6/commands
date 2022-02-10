@@ -48,8 +48,6 @@ abstract class CommandProcessor
             {
                 val topic = wrappedCommand.helpTopic
 
-                println("still not sending... what")
-
                 if (arguments.isNotEmpty())
                 {
                     val page = arguments[0]
@@ -59,8 +57,6 @@ abstract class CommandProcessor
                         topic.pageMap[executor.id] = arguments[0] as Int
                     }
                 }
-
-                println("past page argument check")
 
                 topic
                     .createHelpBody(executor)
