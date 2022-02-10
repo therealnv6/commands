@@ -44,6 +44,8 @@ object Locale
 
     private fun loadLocales()
     {
+        this.loaded = true
+
         if (!this.localeDirectory.exists())
         {
             this.localeDirectory.mkdirs()
@@ -76,8 +78,6 @@ object Locale
                 this.locales[file.name] = map
             }
         }
-
-        this.loaded = true
     }
 
     fun retrieveLocale(
