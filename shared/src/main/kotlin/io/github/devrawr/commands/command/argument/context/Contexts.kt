@@ -15,7 +15,6 @@ object Contexts
         UUID::class.java to UUIDArgumentContext,
     )
 
-
     inline fun <reified K, reified V : ArgumentContext<K>> useContext() = useContext(K::class.java, V::class.java)
 
     fun <K, V : ArgumentContext<K>> useContext(

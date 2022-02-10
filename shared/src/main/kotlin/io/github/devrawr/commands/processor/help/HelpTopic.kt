@@ -12,7 +12,7 @@ class HelpTopic(val command: WrappedCommand)
     val processor: HelpProcessor = Platforms.usedPlatform!!.helpProcessor
     val pageMap = hashMapOf<UUID, Int>()
 
-    private val entryPerPage = Locale.retrieveLocaleField<Int>(LocaleKeys.HELP_ENTRY_PER_PAGE)
+    private val entryPerPage = Locale.retrieveLocaleField<String>(LocaleKeys.HELP_ENTRY_PER_PAGE).toInt()
 
     fun createHelpBody(executor: Executor<*>): HelpBody
     {

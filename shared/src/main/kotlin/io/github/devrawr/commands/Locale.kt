@@ -36,7 +36,7 @@ object Locale
         executor: Executor<*>? = null
     ): T
     {
-        return Contexts.retrieveContext(T::class.java).fromString(
+        return Contexts.retrieveContext<T>().fromString(
             locales[executor?.getLocaleType() ?: defaultLocale]!![field]!!
         )!!
     }
