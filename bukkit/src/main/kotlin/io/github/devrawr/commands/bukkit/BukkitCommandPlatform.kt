@@ -13,7 +13,6 @@ import java.util.*
 object BukkitCommandPlatform : CommandPlatform()
 {
     override val executorProcessor = BukkitExecutorProcessor
-    override val commandProcessor = BukkitCommandProcessor
     override val helpProcessor = BukkitHelpProcessor
 
     var fallback: String = "commands"
