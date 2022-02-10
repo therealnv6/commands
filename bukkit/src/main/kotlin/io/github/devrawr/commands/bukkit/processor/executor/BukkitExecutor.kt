@@ -3,9 +3,21 @@ package io.github.devrawr.commands.bukkit.processor.executor
 import io.github.devrawr.commands.processor.executor.Executor
 import org.bukkit.ChatColor
 import org.bukkit.command.CommandSender
+import org.bukkit.entity.Player
+import java.util.*
 
 class BukkitExecutor(val sender: CommandSender) : Executor<CommandSender>()
 {
+    override val id: UUID by lazy {
+        if (sender is Player)
+        {
+            sender.uniqueId
+        } else
+        {
+            UUID.randomUUID()
+        }
+    }
+
     override fun sendMessage(message: String)
     {
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message))
