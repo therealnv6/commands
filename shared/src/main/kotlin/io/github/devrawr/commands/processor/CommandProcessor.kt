@@ -74,6 +74,7 @@ abstract class CommandProcessor
                 {
                     executor.sendMessage("${Locale.retrieveLocale(executor)["error-prefix"]!!}${exception.message!!}")
                 }
+                else -> throw exception
             }
         }
     }
