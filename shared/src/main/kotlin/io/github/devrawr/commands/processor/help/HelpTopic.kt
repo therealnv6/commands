@@ -37,9 +37,16 @@ class HelpTopic(val command: WrappedCommand)
 
         for (entry in entries)
         {
+            var label = this.command.label
+
+            if (entry.method != this.command.method)
+            {
+                label += " ${entry.label}"
+            }
+
             message.add(
                 Locale.retrieveLocaleField<String>(LocaleKeys.HELP_ENTRY, executor)
-                    .replace("{label}", "${this.command.label} ${entry.label}")
+                    .replace("{label}", label)
                     .replace("{args}", entry.formatArguments(executor))
                     .replace("{description}", command.description)
             )
