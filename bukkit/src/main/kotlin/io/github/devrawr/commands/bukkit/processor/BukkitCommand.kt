@@ -34,7 +34,7 @@ class BukkitCommand(val command: WrappedCommand) : Command(command.label)
             return true
         }
 
-        BukkitCommandPlatform.commandProcessor.process(
+        BukkitCommandPlatform.processor.process(
             executor,
             command,
             args.toList()
