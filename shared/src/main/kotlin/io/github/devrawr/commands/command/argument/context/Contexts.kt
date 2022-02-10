@@ -7,10 +7,10 @@ import java.util.*
 object Contexts
 {
     val contexts = mutableMapOf<Class<*>, ArgumentContext<*>>(
-        Int::class.java to IntegerArgumentContext,
-        Long::class.java to LongArgumentContext,
-        Double::class.java to DoubleArgumentContext,
-        Float::class.java to FloatArgumentContext,
+        Int::class.javaObjectType to IntegerArgumentContext,
+        Long::class.javaObjectType to LongArgumentContext,
+        Double::class.javaObjectType to DoubleArgumentContext,
+        Float::class.javaObjectType to FloatArgumentContext,
         String::class.java to StringArgumentContext,
         UUID::class.java to UUIDArgumentContext,
     )
