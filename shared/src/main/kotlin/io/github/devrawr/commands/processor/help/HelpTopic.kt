@@ -27,7 +27,12 @@ class HelpTopic(val command: WrappedCommand)
 
         println("min/max is $min, $max respectively")
 
-        val entries = this.getHelpEntries(executor).subList(min, max)
+        var entries = this.getHelpEntries(executor)
+
+        if (entries.size > max)
+        {
+            entries = entries.subList(min, max)
+        }
 
         println("amount of entries is ${entries.size}")
 
