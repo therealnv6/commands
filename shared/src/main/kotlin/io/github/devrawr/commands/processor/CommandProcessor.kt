@@ -3,14 +3,15 @@ package io.github.devrawr.commands.processor
 import io.github.devrawr.commands.CommandPlatform
 import io.github.devrawr.commands.Locale
 import io.github.devrawr.commands.LocaleKeys
+import io.github.devrawr.commands.Platforms
 import io.github.devrawr.commands.command.WrappedCommand
 import io.github.devrawr.commands.exception.ArgumentException
 import io.github.devrawr.commands.exception.ConditionFailedException
 import io.github.devrawr.commands.processor.executor.Executor
 
-abstract class CommandProcessor
+open class CommandProcessor
 {
-    abstract val platform: CommandPlatform
+    val platform: CommandPlatform = Platforms.usedPlatform!!
 
     open fun process(
         executor: Executor<*>,

@@ -1,4 +1,5 @@
 rootProject.name = 'commands'
 include 'shared'
 include 'bukkit'
+include 'kord'
 

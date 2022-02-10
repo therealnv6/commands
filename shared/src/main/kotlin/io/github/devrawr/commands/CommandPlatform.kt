@@ -10,9 +10,15 @@ abstract class CommandPlatform
 {
     abstract val executorProcessor: ExecutorProcessor<*>
     abstract val helpProcessor: HelpProcessor
-    abstract val commandProcessor: CommandProcessor
 
-    abstract fun registerCommand(command: WrappedCommand)
+    open val processor = CommandProcessor()
+
+    val commands = mutableListOf<WrappedCommand>()
+
+    open fun registerCommand(command: WrappedCommand)
+    {
+        this.commands.add(command)
+    }
 
     fun registerCommand(command: Any)
     {

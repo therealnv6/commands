@@ -9,7 +9,7 @@ simplistic, work in progress, command framework.
 | Platform    | Platform Class Name   |
 | ----------- | --------------------- |
 | bukkit      | BukkitCommandPlatform |
-| kord        | todo                  |
+| kord - wip  | KordCommandPlatform   |
 
 | Command Wrapper  | Platform Class Name      |
 | ---------------- | ------------------------ |

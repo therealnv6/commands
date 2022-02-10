@@ -3,13 +3,10 @@ package io.github.devrawr.commands.bukkit
 import io.github.devrawr.commands.CommandPlatform
 import io.github.devrawr.commands.Locale
 import io.github.devrawr.commands.bukkit.processor.BukkitCommand
-import io.github.devrawr.commands.bukkit.processor.BukkitCommandProcessor
 import io.github.devrawr.commands.bukkit.processor.executor.BukkitExecutorProcessor
 import io.github.devrawr.commands.bukkit.processor.help.BukkitHelpProcessor
 import io.github.devrawr.commands.command.WrappedCommand
-import io.github.devrawr.commands.processor.help.HelpProcessor
 import org.bukkit.Bukkit
-import org.bukkit.ChatColor
 import org.bukkit.command.CommandMap
 import java.util.*
 
