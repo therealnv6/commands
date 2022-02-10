@@ -2,10 +2,19 @@ package io.github.devrawr.commands
 
 import io.github.devrawr.commands.command.argument.context.Contexts
 import io.github.devrawr.commands.processor.executor.Executor
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.util.*
+import kotlin.collections.HashMap
 
 object Locale
 {
     var defaultLocale = "en_US"
+    var localeDirectory = File("locales/")
+
+    var loaded = false
+
     val locales = hashMapOf(
         "en_US" to hashMapOf(
             LocaleKeys.USER_NOT_FOUND to "User could not be parsed from provided executor.",
@@ -23,6 +32,53 @@ object Locale
             LocaleKeys.HELP_FOOTER to "Showing page {page-current} of {page-max} ({results} results)"
         )
     )
+        get()
+        {
+            if (!loaded)
+            {
+                this.loadLocales()
+            }
+
+            return field
+        }
+
+    private fun loadLocales()
+    {
+        if (!this.localeDirectory.exists())
+        {
+            this.localeDirectory.mkdirs()
+
+            val file = File(this.localeDirectory, defaultLocale)
+            val properties = Properties()
+
+            for (entry in this.locales[defaultLocale]!!)
+            {
+                properties[entry.key] = entry.value
+            }
+
+            properties.store(FileOutputStream(file), null)
+        }
+
+        val files = localeDirectory.listFiles()
+
+        if (files != null)
+        {
+            for (file in files)
+            {
+                val map = hashMapOf<String, String>()
+                val properties = Properties()
+
+                properties.load(FileInputStream(file))
+
+                for (entry in properties.entries)
+                {
+                    map[entry.key.toString()] = entry.value.toString()
+                }
+            }
+        }
+
+        this.loaded = true
+    }
 
     fun retrieveLocale(
         executor: Executor<*>? = null
