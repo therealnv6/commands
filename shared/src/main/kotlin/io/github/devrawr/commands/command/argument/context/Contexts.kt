@@ -3,14 +3,16 @@ package io.github.devrawr.commands.command.argument.context
 import io.github.devrawr.commands.command.argument.context.defaults.*
 import io.github.devrawr.commands.util.ObjectInstanceUtil.getOrCreateInstance
 import java.util.*
+import kotlin.jvm.internal.ClassBasedDeclarationContainer
+import kotlin.reflect.KClass
 
 object Contexts
 {
     val contexts = mutableMapOf<Class<*>, ArgumentContext<*>>(
-        Int::class.javaObjectType to IntegerArgumentContext,
-        Long::class.javaObjectType to LongArgumentContext,
-        Double::class.javaObjectType to DoubleArgumentContext,
-        Float::class.javaObjectType to FloatArgumentContext,
+        Int::class.java to IntegerArgumentContext,
+        Long::class.java to LongArgumentContext,
+        Double::class.java to DoubleArgumentContext,
+        Float::class.java to FloatArgumentContext,
         String::class.java to StringArgumentContext,
         UUID::class.java to UUIDArgumentContext,
     )
@@ -45,7 +47,19 @@ object Contexts
         }
     }
 
-    inline fun <reified T> retrieveContext(): ArgumentContext<T> = retrieveContext(T::class.java)
+    inline fun <reified T : Any> retrieveContext(): ArgumentContext<T>
+    {
+        return retrieveContext(
+            if (T::class.javaPrimitiveType != null)
+            {
+                T::class.javaPrimitiveType!!
+            } else
+            {
+                T::class.java
+            }
+        )
+    }
+
 
     fun <T> retrieveContext(type: Class<T>): ArgumentContext<T>
     {

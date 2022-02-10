@@ -129,11 +129,6 @@ class WrappedCommand(
             )
         }
 
-        for (argument in arguments)
-        {
-            println(argument!!.javaClass)
-        }
-
         return arguments
             .toTypedArray()
     }
