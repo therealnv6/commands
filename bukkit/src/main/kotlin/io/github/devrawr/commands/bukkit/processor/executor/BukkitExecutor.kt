@@ -9,6 +9,7 @@ import java.util.*
 
 class BukkitExecutor(val sender: CommandSender) : Executor<CommandSender>()
 {
+    override val localeType = Locale.defaultLocale
     override val id: UUID by lazy {
         if (sender is Player)
         {
@@ -37,10 +38,5 @@ class BukkitExecutor(val sender: CommandSender) : Executor<CommandSender>()
     override fun toUser(): CommandSender
     {
         return this.sender
-    }
-
-    override fun getLocaleType(): String
-    {
-        return "bukkit"
     }
 }
