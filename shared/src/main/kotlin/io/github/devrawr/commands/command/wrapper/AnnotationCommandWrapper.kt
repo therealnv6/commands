@@ -34,7 +34,9 @@ object AnnotationCommandWrapper : CommandWrapper()
                 ).apply {
                     this.permission = command.getAnnotation<CommandPermission>()?.value ?: ""
                     this.description = command.getAnnotation<HelpDescription>()?.value ?: ""
+
                     this.help = command.getAnnotation<Help>() != null
+
                     this.arguments = wrapArguments(command).toMutableList()
                 }
             )
@@ -72,10 +74,11 @@ object AnnotationCommandWrapper : CommandWrapper()
                         method = method
                     ).apply {
                         this.permission = clazz.getAnnotation<CommandPermission>()?.value ?: ""
-                        this.description = clazz.getAnnotation<HelpDescription>()?.value ?: ""
+
+                        this.description = method.getAnnotation<HelpDescription>()?.value ?: ""
+                        this.help = method.getAnnotation<Help>() != null
 
                         this.arguments = wrapArguments(method).toMutableList()
-                        this.help = method.getAnnotation<Help>() != null
 
                         for (declaredMethod in clazz.declaredMethods)
                         {
