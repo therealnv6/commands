@@ -17,6 +17,8 @@ class BukkitHelpBody(private val message: List<String>) : HelpBody()
 {
     override fun sendBodyToExecutor(executor: Executor<*>)
     {
+        println("sending body to executor, ${getAsString()}")
+
         executor.sendMessage(getAsString())
     }
 

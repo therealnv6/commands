@@ -54,6 +54,8 @@ abstract class CommandProcessor
                     topic.pageMap[executor.id] = page
                 }
 
+                println("hey! creating and sending help message")
+
                 topic
                     .createHelpBody(executor)
                     .sendBodyToExecutor(executor)

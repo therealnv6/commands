@@ -12,7 +12,7 @@ class HelpTopic(val command: WrappedCommand)
     val processor: HelpProcessor = Platforms.usedPlatform!!.helpProcessor
     val pageMap = hashMapOf<UUID, Int>()
 
-    private val entryPerPage = Locale.retrieveLocaleField<String>(LocaleKeys.HELP_ENTRY_PER_PAGE).toInt()
+    private val entryPerPage = Locale.retrieveLocaleField<Int>(LocaleKeys.HELP_ENTRY_PER_PAGE)
 
     fun createHelpBody(executor: Executor<*>): HelpBody
     {
@@ -45,6 +45,8 @@ class HelpTopic(val command: WrappedCommand)
                 .replace("{page-max}", ((this.command.children.size + 1) / entryPerPage).toString())
                 .replace("{results}", entries.size.toString())
         )
+
+        println(message)
 
         return processor.createBody(message)
     }
