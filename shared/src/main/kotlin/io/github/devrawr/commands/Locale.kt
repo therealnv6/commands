@@ -28,7 +28,7 @@ object Locale
         executor: Executor<*>? = null
     ): HashMap<String, String>
     {
-        return locales[executor?.getLocaleType() ?: defaultLocale]!!
+        return locales[executor?.localeType ?: defaultLocale]!!
     }
 
     inline fun <reified T> retrieveLocaleField(
@@ -37,7 +37,7 @@ object Locale
     ): T
     {
         return Contexts.retrieveContext<T>().fromString(
-            locales[executor?.getLocaleType() ?: defaultLocale]!![field]!!
+            retrieveLocale(executor)[field]!!
         )!!
     }
 }
