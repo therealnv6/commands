@@ -1,0 +1,14 @@
+#Thu Feb 10 23:28:52 CET 2022
+help-footer=Showing page {page-current} of {page-max} ({results} results)
+optional-argument=[{name}]
+vararg-argument=...
+unable-to-parse-argument=Unable to parse argument from "{arg}"
+help-entry-per-page=6
+help-title=\=\=\= Showing help for /{parent} \=\=\=
+help-entry=/{label} {args} - {description}
+does-not-meet-arguments=Incorrect usage, try\: /{label} {arguments}
+user-not-found=User could not be parsed from provided executor.
+unable-to-parse-executor=Executor could not be parsed from provided user.
+insufficient-permissions=You have insufficient permissions to execute this.
+required-argument=<{name}>
+error-prefix=Error\: 

@@ -14,22 +14,27 @@ object KordCommandListener
         if (content.startsWith(KordCommandPlatform.prefix))
         {
             val label = arguments[0].replaceFirst(KordCommandPlatform.prefix, "")
-            val command = KordCommandPlatform.commands
-                .firstOrNull {
-                    it.name.contains(label)
-                }
+            val command = KordCommandPlatform.commands.firstOrNull {
+                it.name.contains(label)
+            }
 
             if (command != null)
             {
                 val user = message.author!!
                 val executor = KordExecutor(message)
 
-                KordExecutorProcessor.executorMap[user] = executor
+                var args = listOf<String>()
 
+                if (arguments.size > 1)
+                {
+                    args = arguments.subList(1, arguments.size)
+                }
+
+                KordExecutorProcessor.executorMap[user] = executor
                 KordCommandPlatform.processor.process(
-                    executor,
-                    command,
-                    arguments.subList(1, arguments.size - 1)
+                    executor = executor,
+                    command = command,
+                    args = args
                 )
             }
         }

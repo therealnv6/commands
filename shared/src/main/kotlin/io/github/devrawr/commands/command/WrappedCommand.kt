@@ -6,7 +6,10 @@ import io.github.devrawr.commands.exception.ArgumentCountException
 import io.github.devrawr.commands.exception.ArgumentParseException
 import io.github.devrawr.commands.processor.executor.Executor
 import io.github.devrawr.commands.processor.help.HelpTopic
+import kotlinx.coroutines.runBlocking
 import java.lang.reflect.Method
+import kotlin.reflect.full.callSuspend
+import kotlin.reflect.jvm.kotlinFunction
 
 class WrappedCommand(
     val name: Array<String>,
@@ -22,7 +25,7 @@ class WrappedCommand(
     var description: String = "No description"
     var help = false
 
-    val helpTopic =  HelpTopic(this)
+    val helpTopic = HelpTopic(this)
 
     constructor(
         name: Array<String>,
@@ -31,7 +34,17 @@ class WrappedCommand(
     ) : this(
         name = name,
         method = {
-            method.invoke(instance, *it)
+            val kotlin = method.kotlinFunction
+
+            if (kotlin != null && kotlin.isSuspend)
+            {
+                runBlocking {
+                    kotlin.callSuspend(instance, *it)
+                }
+            } else
+            {
+                method.invoke(instance, *it)
+            }
         }
     )
 
@@ -39,7 +52,10 @@ class WrappedCommand(
         executor: Executor<*>
     ) = arguments
         .map {
-            if (it == arguments.first() && executor.appliesToUser(it.type))
+            if (it == arguments.first() && executor.appliesToUser(this.arguments[0].type) || Executor::class.java.isAssignableFrom(
+                    this.arguments[0].type
+                )
+            )
             {
                 return@map null
             }
@@ -64,13 +80,22 @@ class WrappedCommand(
     ): Array<Any?>
     {
         val arguments = mutableListOf<Any?>()
-        val skipFirst = executor.appliesToUser(this.arguments[0].type)
+        val skipFirst =
+            executor.appliesToUser(this.arguments[0].type) || Executor::class.java.isAssignableFrom(this.arguments[0].type)
 
         if (skipFirst)
         {
             try
             {
-                executor.toUser()?.let {
+                this.arguments[0].type.cast(
+                    if (executor.appliesToUser(this.arguments[0].type))
+                    {
+                        executor.toUser()
+                    } else
+                    {
+                        executor
+                    }
+                )?.let {
                     arguments.add(this.arguments[0].type.cast(it))
                 }
             } catch (ignored: ClassCastException)

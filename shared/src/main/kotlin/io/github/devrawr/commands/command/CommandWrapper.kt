@@ -5,6 +5,7 @@ import io.github.devrawr.commands.command.annotation.Value
 import io.github.devrawr.commands.command.argument.WrappedArgument
 import io.github.devrawr.commands.command.argument.context.Contexts
 import io.github.devrawr.commands.util.ParameterUtil.getAnnotation
+import io.github.devrawr.commands.util.ParameterUtil.getKotlinParameters
 import java.lang.reflect.Method
 
 abstract class CommandWrapper
@@ -21,9 +22,9 @@ abstract class CommandWrapper
         method: Method,
     ): List<WrappedArgument<*>>
     {
-        return method.parameters
+        return method.getKotlinParameters()
             .map {
-                val value = it.getAnnotation<Value>()?.value
+                val value = it.value
                 val context = Contexts.retrieveAnyContext(it.type)
 
                 val wrappedValue = if (value != null)

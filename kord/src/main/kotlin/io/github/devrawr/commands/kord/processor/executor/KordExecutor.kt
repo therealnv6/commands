@@ -50,9 +50,9 @@ class KordExecutor(
             val guild = message.getGuild()
             val member = toUser().asMember(guild.id)
 
-            val kordPermission = Permission.values.first {
+            val kordPermission = Permission.values.firstOrNull {
                 it.code.value == permission
-            }
+            } ?: return@runBlocking true
 
             return@runBlocking member.getPermissions().contains(kordPermission)
         }

@@ -26,6 +26,7 @@ allprojects {
         testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
 
         implementation "org.jetbrains.kotlin:kotlin-reflect:1.6.10"
+        implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
     }
 
     test {
