@@ -28,7 +28,12 @@ class HelpTopic(val command: WrappedCommand)
         println("min/max is $min, $max respectively")
 
         val entries = this.getHelpEntries(executor).subList(min, max)
+
+        println("amount of entries is ${entries.size}")
+
         val message = mutableListOf<String>()
+
+        println("created new message list")
 
         message.add(
             Locale.retrieveLocaleField<String>(LocaleKeys.HELP_TITLE, executor)
