@@ -49,11 +49,9 @@ object Locale
             this.localeDirectory.mkdirs()
 
             val file = File(this.localeDirectory, defaultLocale)
-            val properties = Properties()
 
-            for (entry in this.locales[defaultLocale]!!)
-            {
-                properties[entry.key] = entry.value
+            val properties = Properties().apply {
+                this.putAll(locales[defaultLocale]!!)
             }
 
             properties.store(FileOutputStream(file), null)
@@ -74,6 +72,8 @@ object Locale
                 {
                     map[entry.key.toString()] = entry.value.toString()
                 }
+
+                this.locales[file.name] = map
             }
         }
 
