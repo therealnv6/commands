@@ -17,6 +17,8 @@ abstract class CommandProcessor
         args: List<String>
     )
     {
+        println("called process method")
+
         val user = executor.toUser()
 
         if (user == null)
@@ -37,6 +39,8 @@ abstract class CommandProcessor
             return
         }
 
+        println("past wrappedCommand check")
+
         try
         {
             val arguments = wrappedCommand.handleArguments(
@@ -46,12 +50,16 @@ abstract class CommandProcessor
 
             if (wrappedCommand.help)
             {
-                val page = arguments[0]
                 val topic = wrappedCommand.helpTopic
 
-                if (page is Int)
+                if (arguments.isNotEmpty())
                 {
-                    topic.pageMap[executor.id] = page
+                    val page = arguments[0]
+
+                    if (page is Int)
+                    {
+                        topic.pageMap[executor.id] = arguments[0] as Int
+                    }
                 }
 
                 println("hey! creating and sending help message")
