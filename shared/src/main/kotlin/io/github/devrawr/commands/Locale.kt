@@ -87,7 +87,7 @@ object Locale
         return locales[executor?.localeType ?: defaultLocale]!!
     }
 
-    inline fun <reified T> retrieveLocaleField(
+    inline fun <reified T : Any> retrieveLocaleField(
         field: String,
         executor: Executor<*>? = null
     ): T
