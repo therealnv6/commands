@@ -32,6 +32,28 @@ object DefaultTabCompletionProcessor : TabCompletionProcessor()
             )
         }
 
+        val list = initial.toMutableList()
+
+        for (command in platform.commands)
+        {
+            for (alias in command.name)
+            {
+                if (list.contains("/$alias"))
+                {
+                    list.remove("/$alias")
+                }
+            }
+
+            list.addAll(
+                modifyTabCompletion(
+                    executor = executor,
+                    initial = initial,
+                    command = command,
+                    query = query
+                )
+            )
+        }
+
         return initial
     }
 

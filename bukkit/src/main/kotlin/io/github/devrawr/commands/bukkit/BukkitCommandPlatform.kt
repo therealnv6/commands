@@ -26,10 +26,7 @@ object BukkitCommandPlatform : CommandPlatform()
         val pluginManager = Bukkit.getPluginManager()
 
         val mapField = this.getFieldWrapped<SimplePluginManager>("commandMap")
-        val modifiersField = this.getFieldWrapped<Field>("modifiers")
         val knownCommandsField = this.getFieldWrapped<SimpleCommandMap>("knownCommands")
-
-        modifiersField.set(knownCommandsField, knownCommandsField.modifiers.and(-17))
 
         val map = BukkitCommandMap
         val oldMap = mapField.get(pluginManager) as CommandMap
