@@ -4,6 +4,8 @@ import io.github.devrawr.commands.command.WrappedCommand
 import io.github.devrawr.commands.processor.CommandProcessor
 import io.github.devrawr.commands.processor.executor.ExecutorProcessor
 import io.github.devrawr.commands.processor.help.HelpProcessor
+import io.github.devrawr.commands.processor.tab.TabCompletionProcessor
+import io.github.devrawr.commands.processor.tab.defaults.DefaultTabCompletionProcessor
 import io.github.devrawr.commands.util.ObjectInstanceUtil.getOrCreateInstance
 
 abstract class CommandPlatform
@@ -12,6 +14,7 @@ abstract class CommandPlatform
     abstract val helpProcessor: HelpProcessor
 
     open val processor = CommandProcessor()
+    open var tabCompletionProcessor: TabCompletionProcessor = DefaultTabCompletionProcessor
 
     val commands = mutableListOf<WrappedCommand>()
 

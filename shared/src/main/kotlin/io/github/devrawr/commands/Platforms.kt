@@ -5,6 +5,8 @@ import io.github.devrawr.commands.command.WrappedCommand
 import io.github.devrawr.commands.command.argument.WrappedArgument
 import io.github.devrawr.commands.command.argument.context.ArgumentContext
 import io.github.devrawr.commands.command.argument.context.Contexts
+import io.github.devrawr.commands.processor.tab.TabCompletionProcessor
+import io.github.devrawr.commands.processor.tab.defaults.DefaultTabCompletionProcessor
 import io.github.devrawr.commands.util.ObjectInstanceUtil.getOrCreateInstance
 
 object Platforms

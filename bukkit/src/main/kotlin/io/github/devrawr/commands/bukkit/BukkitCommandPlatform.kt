@@ -8,6 +8,10 @@ import io.github.devrawr.commands.bukkit.processor.help.BukkitHelpProcessor
 import io.github.devrawr.commands.command.WrappedCommand
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandMap
+import org.bukkit.command.SimpleCommandMap
+import org.bukkit.plugin.PluginManager
+import org.bukkit.plugin.SimplePluginManager
+import java.lang.reflect.Field
 import java.util.*
 
 object BukkitCommandPlatform : CommandPlatform()
@@ -17,15 +21,23 @@ object BukkitCommandPlatform : CommandPlatform()
 
     var fallback: String = "commands"
 
+    // TODO: 2/11/2022 clean up code
     private val commandMap by lazy {
         val pluginManager = Bukkit.getPluginManager()
-        val field = pluginManager.javaClass
-            .getDeclaredField("commandMap")
-            .apply {
-                this.isAccessible = true
-            }
 
-        return@lazy field.get(pluginManager) as CommandMap
+        val mapField = this.getFieldWrapped<SimplePluginManager>("commandMap")
+        val modifiersField = this.getFieldWrapped<Field>("modifiers")
+        val knownCommandsField = this.getFieldWrapped<SimpleCommandMap>("knownCommands")
+
+        modifiersField.set(knownCommandsField, knownCommandsField.modifiers.and(-17))
+
+        val map = BukkitCommandMap
+        val oldMap = mapField.get(pluginManager) as CommandMap
+
+        knownCommandsField.set(map, knownCommandsField[oldMap]!!)
+        mapField.set(Bukkit.getServer(), map)
+
+        return@lazy map
     }
 
     init
@@ -39,5 +51,12 @@ object BukkitCommandPlatform : CommandPlatform()
     override fun registerCommand(command: WrappedCommand)
     {
         commandMap.register(fallback, BukkitCommand(command))
+    }
+
+    private inline fun <reified T : Any> getFieldWrapped(field: String): Field
+    {
+        return T::class.java.getDeclaredField(field).apply {
+            this.isAccessible = true
+        }
     }
 }
