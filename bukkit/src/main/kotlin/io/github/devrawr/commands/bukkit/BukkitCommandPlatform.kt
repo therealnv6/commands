@@ -47,6 +47,8 @@ object BukkitCommandPlatform : CommandPlatform()
 
     override fun registerCommand(command: WrappedCommand)
     {
+        super.registerCommand(command)
+
         commandMap.register(fallback, BukkitCommand(command))
     }
 
