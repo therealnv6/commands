@@ -54,6 +54,8 @@ object DefaultTabCompletionProcessor : TabCompletionProcessor()
             )
         }
 
+        println(initial)
+
         return initial
     }
 
