@@ -13,6 +13,8 @@ object DefaultTabCompletionProcessor : TabCompletionProcessor()
         query: String
     ): List<String>
     {
+        println(initial)
+
         val label = query.split(" ")[0]
 
         val platform = Platforms.usedPlatform!!
@@ -53,8 +55,6 @@ object DefaultTabCompletionProcessor : TabCompletionProcessor()
                 )
             )
         }
-
-        println(initial)
 
         return initial
     }

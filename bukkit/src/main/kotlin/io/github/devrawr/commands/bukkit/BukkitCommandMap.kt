@@ -11,6 +11,8 @@ object BukkitCommandMap : SimpleCommandMap(Bukkit.getServer())
         cmdLine: String
     ): MutableList<String>
     {
+        println(cmdLine)
+
         val tabCompleteProcessor = BukkitCommandPlatform.tabCompletionProcessor
         val executorProcessor = BukkitCommandPlatform.executorProcessor
 
