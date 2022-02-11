@@ -32,7 +32,7 @@ object BukkitCommandPlatform : CommandPlatform()
         val oldMap = mapField.get(pluginManager) as CommandMap
 
         knownCommandsField.set(map, knownCommandsField[oldMap]!!)
-        mapField.set(Bukkit.getServer(), map)
+        mapField.set(pluginManager, map)
 
         return@lazy map
     }
