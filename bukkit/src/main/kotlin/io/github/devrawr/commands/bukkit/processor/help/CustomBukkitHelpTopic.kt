@@ -9,7 +9,6 @@ import org.bukkit.help.GenericCommandHelpTopic
 import java.lang.IllegalStateException
 import java.lang.RuntimeException
 
-// TODO: 2/10/2022 implement custom commandMap to register this
 class CustomBukkitHelpTopic(private val bukkitCommand: BukkitCommand) : GenericCommandHelpTopic(bukkitCommand)
 {
     override fun getFullText(forWho: CommandSender): String
