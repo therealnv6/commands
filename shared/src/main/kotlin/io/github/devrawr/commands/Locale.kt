@@ -94,7 +94,7 @@ object Locale
     ): T
     {
         return Contexts.retrieveContext<T>().fromString(
-            retrieveLocale(executor)[field]!!
+            executor, retrieveLocale(executor)[field]!!
         )!!
     }
 }
