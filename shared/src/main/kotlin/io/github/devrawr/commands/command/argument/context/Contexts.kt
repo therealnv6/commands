@@ -1,6 +1,7 @@
 package io.github.devrawr.commands.command.argument.context
 
 import io.github.devrawr.commands.command.argument.context.defaults.*
+import io.github.devrawr.commands.processor.executor.Executor
 import io.github.devrawr.commands.util.ObjectInstanceUtil.getOrCreateInstance
 import java.util.*
 import kotlin.jvm.internal.ClassBasedDeclarationContainer
@@ -30,6 +31,7 @@ object Contexts
     }
 
     inline fun <reified T> createContext(noinline body: (String) -> T) = createContext(T::class.java, body)
+    inline fun <reified T> createContext(noinline body: (Executor<*>?, String) -> T) = createContext(T::class.java, body)
 
     fun <T> createContext(
         type: Class<T>,
@@ -39,9 +41,25 @@ object Contexts
         return this.apply {
             this.contexts[type] = object : ArgumentContext<T>
             {
-                override fun fromString(value: String): T?
+                override fun fromString(executor: Executor<*>?, value: String): T?
                 {
                     return body.invoke(value)
+                }
+            }
+        }
+    }
+
+    fun <T> createContext(
+        type: Class<T>,
+        body: (Executor<*>?, String) -> T
+    ): Contexts
+    {
+        return this.apply {
+            this.contexts[type] = object : ArgumentContext<T>
+            {
+                override fun fromString(executor: Executor<*>?, value: String): T?
+                {
+                    return body.invoke(executor, value)
                 }
             }
         }
