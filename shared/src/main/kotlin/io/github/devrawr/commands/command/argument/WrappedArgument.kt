@@ -1,6 +1,7 @@
 package io.github.devrawr.commands.command.argument
 
 import io.github.devrawr.commands.command.argument.context.ArgumentContext
+import io.github.devrawr.commands.processor.executor.Executor
 
 class WrappedArgument<T>(
     val name: String,
@@ -16,8 +17,8 @@ class WrappedArgument<T>(
         value as T
     )
 
-    fun convertToValue(value: String): T?
+    fun convertToValue(executor: Executor<*>, value: String): T?
     {
-        return context.fromString(value)
+        return context.fromString(executor, value)
     }
 }

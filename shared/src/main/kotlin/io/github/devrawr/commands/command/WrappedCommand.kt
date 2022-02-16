@@ -145,7 +145,7 @@ class WrappedCommand(
 
                     try
                     {
-                        argument.convertToValue(args[offsetIndex]) ?: throw exception
+                        argument.convertToValue(executor, args[offsetIndex]) ?: throw exception
                     } catch (ignored: Exception)
                     {
                         throw exception

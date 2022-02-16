@@ -29,7 +29,7 @@ abstract class CommandWrapper
 
                 val wrappedValue = if (value != null)
                 {
-                    context.fromString(value)
+                    context.fromString(null, value)
                 } else
                 {
                     null
