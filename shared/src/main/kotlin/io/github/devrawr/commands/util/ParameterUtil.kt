@@ -3,7 +3,9 @@ package io.github.devrawr.commands.util
 import io.github.devrawr.commands.command.annotation.Value
 import java.lang.reflect.AnnotatedElement
 import java.lang.reflect.Method
+import java.lang.reflect.Parameter
 import kotlin.reflect.KAnnotatedElement
+import kotlin.reflect.KParameter
 import kotlin.reflect.full.findAnnotations
 import kotlin.reflect.jvm.jvmErasure
 import kotlin.reflect.jvm.kotlinFunction
@@ -42,7 +44,6 @@ object ParameterUtil
                         value = it.getAnnotation<Value>()?.value
                     )
                 }
-
     }
 }
 

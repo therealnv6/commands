@@ -16,6 +16,11 @@ object UserArgumentContext : ArgumentContext<User>
             return null
         }
 
+        if (value == "SELF")
+        {
+            return executor.toUser() as User
+        }
+
         val message = (executor as KordExecutor).message
 
         return runBlocking {

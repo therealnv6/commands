@@ -17,49 +17,18 @@ class HelpTopic(val command: WrappedCommand)
     fun createHelpBody(executor: Executor<*>): HelpBody
     {
         val page = pageMap.putIfAbsent(executor.id, 0) ?: pageMap[executor.id]!!
+        val children = this.getHelpEntries(executor)
 
-        val min = page * entryPerPage
-        val max = min + this.entryPerPage
-
-        var entries = this.getHelpEntries(executor)
-
-        if (entries.size > max)
-        {
-            entries = entries.subList(min, max)
-        }
-
-        val message = mutableListOf<String>()
-
-        message.add(
-            Locale.retrieveLocaleField<String>(LocaleKeys.HELP_TITLE, executor)
-                .replace("{parent}", this.command.label)
-        )
-
-        for (entry in entries)
-        {
-            var label = this.command.label
-
-            if (entry.method != this.command.method)
-            {
-                label += " ${entry.label}"
-            }
-
-            message.add(
-                Locale.retrieveLocaleField<String>(LocaleKeys.HELP_ENTRY, executor)
-                    .replace("{label}", label)
-                    .replace("{args}", entry.formatArguments(executor))
-                    .replace("{description}", entry.description)
+        return processor.createBody(
+            executor = executor,
+            data = HelpTopicData(
+                parent = this.command,
+                children = children,
+                results = children.size,
+                page = page,
+                pageMax = (this.command.children.size + 1) / entryPerPage
             )
-        }
-
-        message.add(
-            Locale.retrieveLocaleField<String>(LocaleKeys.HELP_FOOTER, executor)
-                .replace("{page-current}", page.toString())
-                .replace("{page-max}", ((this.command.children.size + 1) / entryPerPage).toString())
-                .replace("{results}", entries.size.toString())
         )
-
-        return processor.createBody(message)
     }
 
     /**
@@ -91,3 +60,11 @@ class HelpTopic(val command: WrappedCommand)
         return entries.toList()
     }
 }
+
+data class HelpTopicData(
+    val parent: WrappedCommand,
+    val children: List<WrappedCommand>,
+    val results: Int,
+    val page: Int,
+    val pageMax: Int
+)
