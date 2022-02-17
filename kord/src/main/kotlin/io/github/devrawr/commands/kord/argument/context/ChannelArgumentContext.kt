@@ -20,7 +20,7 @@ object ChannelArgumentContext : ArgumentContext<Channel>
 
         return runBlocking {
             message.mentionedChannels.firstOrNull {
-                it.mention == value
+                it.mention == value.replaceFirst("!", "")
             }
         }
     }

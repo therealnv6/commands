@@ -20,8 +20,7 @@ object UserArgumentContext : ArgumentContext<User>
 
         return runBlocking {
             message.mentionedUsers.firstOrNull {
-                println(it.mention)
-                it.mention == value
+                it.mention == value.replaceFirst("!", "")
             }
         }
     }
