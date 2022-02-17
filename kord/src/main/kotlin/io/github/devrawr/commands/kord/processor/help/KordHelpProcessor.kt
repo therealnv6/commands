@@ -33,7 +33,7 @@ object KordHelpProcessor : HelpProcessor
 
             field {
                 name = "Help Page ${data.page}/${data.pageMax}"
-                value = entries.joinToString {
+                value = entries.joinToString("\n") {
                     var label = data.parent.label
 
                     if (it.method != data.parent.method)

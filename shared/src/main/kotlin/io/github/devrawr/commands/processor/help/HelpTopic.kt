@@ -25,8 +25,8 @@ class HelpTopic(val command: WrappedCommand)
                 parent = this.command,
                 children = children,
                 results = children.size,
-                page = page,
-                pageMax = (this.command.children.size + 1) / entryPerPage
+                page = page + 1,
+                pageMax = ((this.command.children.size + 1) / entryPerPage) + 1
             )
         )
     }
