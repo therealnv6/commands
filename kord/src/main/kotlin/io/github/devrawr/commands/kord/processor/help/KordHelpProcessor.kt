@@ -21,6 +21,8 @@ object KordHelpProcessor : HelpProcessor
     ): HelpBody
     {
         return KordHelpBody {
+            title = "Help for ${data.parent.label}"
+
             val min = data.page * entryPerPage
             val max = min + entryPerPage
 
@@ -43,6 +45,7 @@ object KordHelpProcessor : HelpProcessor
                 field {
                     name = "${KordCommandPlatform.prefix}`$label`"
                     value = entry.description
+                    inline = true
                 }
             }
 
