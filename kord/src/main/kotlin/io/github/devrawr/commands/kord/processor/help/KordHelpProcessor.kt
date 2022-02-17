@@ -31,18 +31,23 @@ object KordHelpProcessor : HelpProcessor
                 entries = entries.subList(min, max)
             }
 
-            field {
-                name = "Help Page ${data.page}/${data.pageMax}"
-                value = entries.joinToString("\n") {
-                    var label = data.parent.label
+            for (entry in entries)
+            {
+                var label = data.parent.label
 
-                    if (it.method != data.parent.method)
-                    {
-                        label += " ${it.label}"
-                    }
-
-                    "${KordCommandPlatform.prefix}`$label` - ${it.description}"
+                if (entry.method != data.parent.method)
+                {
+                    label += " ${entry.label}"
                 }
+
+                field {
+                    name = "${KordCommandPlatform.prefix}`$label`"
+                    value = entry.description
+                }
+            }
+
+            footer {
+                text = "Page ${data.page}/${data.pageMax}"
             }
         }
     }

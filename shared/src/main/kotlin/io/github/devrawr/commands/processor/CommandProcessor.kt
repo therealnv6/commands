@@ -75,8 +75,6 @@ open class CommandProcessor
             }
         } catch (exception: Exception)
         {
-            exception.printStackTrace()
-
             when (exception)
             {
                 is ArgumentException,
