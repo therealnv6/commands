@@ -34,14 +34,14 @@ class KordExecutor(
         }
     }
 
-    suspend fun sendKordMessage(message: UserMessageCreateBuilder.() -> Unit)
+    suspend fun sendKordMessage(message: UserMessageCreateBuilder.() -> Unit): Message
     {
-        this.message.channel.createMessage(message)
+        return this.message.channel.createMessage(message)
     }
 
-    suspend fun sendEmbed(message: EmbedBuilder.() -> Unit)
+    suspend fun sendEmbed(message: EmbedBuilder.() -> Unit): Message
     {
-        this.message.channel.createEmbed(message)
+        return this.message.channel.createEmbed(message)
     }
 
     override fun hasPermission(permission: String): Boolean

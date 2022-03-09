@@ -17,6 +17,8 @@ object KordCommandPlatform : CommandPlatform()
     override val executorProcessor = KordExecutorProcessor
     override val helpProcessor = KordHelpProcessor
 
+    lateinit var kord: Kord
+
     var prefix: String = "!"
 
     init
@@ -27,8 +29,12 @@ object KordCommandPlatform : CommandPlatform()
 
     fun use(kord: Kord)
     {
+        this.kord = kord
+
         kord.on<MessageCreateEvent> {
             KordCommandListener.listenToMessage(this.message)
         }
+
+        kord.on<> {  }
     }
 }

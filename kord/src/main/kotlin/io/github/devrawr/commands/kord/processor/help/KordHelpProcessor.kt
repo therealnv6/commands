@@ -1,5 +1,8 @@
 package io.github.devrawr.commands.kord.processor.help
 
+import dev.kord.common.entity.ButtonStyle
+import dev.kord.core.entity.ReactionEmoji
+import dev.kord.rest.builder.component.ButtonBuilder
 import dev.kord.rest.builder.message.EmbedBuilder
 import io.github.devrawr.commands.Locale
 import io.github.devrawr.commands.LocaleKeys
@@ -63,7 +66,10 @@ class KordHelpBody(private val message: EmbedBuilder.() -> Unit) : HelpBody()
         if (executor is KordExecutor)
         {
             runBlocking {
-                executor.sendEmbed(message)
+                val message = executor.sendEmbed(message)
+
+                message.addReaction(ReactionEmoji.Unicode("◀"))
+                message.addReaction(ReactionEmoji.Unicode("▶"))
             }
         }
     }
