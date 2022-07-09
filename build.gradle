@@ -1,5 +1,4 @@
 plugins {
-    id 'maven-publish'
     id 'org.jetbrains.kotlin.jvm' version '1.6.10'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
@@ -8,7 +7,6 @@ allprojects {
     group 'io.github.devrawr'
     version '1.0-SNAPSHOT'
 
-    apply plugin: 'maven-publish'
     apply plugin: 'org.jetbrains.kotlin.jvm'
     apply plugin: 'com.github.johnrengelman.shadow'
 
@@ -22,11 +20,11 @@ allprojects {
     }
 
     dependencies {
-        implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.10'
+        implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.7.0'
         testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
 
-        implementation "org.jetbrains.kotlin:kotlin-reflect:1.6.10"
-        implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
+        implementation 'org.jetbrains.kotlin:kotlin-reflect:1.7.0'
+        implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2'
     }
 
     test {
@@ -46,14 +44,6 @@ allprojects {
         exclude "META-INF/"
 
         archiveFileName = "commands-${project.name}.jar"
-    }
-
-    publishing {
-        publications {
-            shadow(MavenPublication) { publication ->
-                project.shadow.component(publication)
-            }
-        }
     }
 
     tasks.build.dependsOn(shadowJar)
