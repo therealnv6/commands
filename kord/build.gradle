@@ -6,7 +6,5 @@ repositories {
 
 dependencies {
     compileOnly "dev.kord:kord-core:0.8.0-M9"
-    implementation "net.perfectdreams.discordinteraktions:webserver-ktor-kord:0.0.12-SNAPSHOT"
-
     implementation project(":shared")
 }
